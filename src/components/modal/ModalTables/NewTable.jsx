@@ -1,8 +1,17 @@
 import { useState } from "react";
 import { Col, Form, Modal, Row, Button } from "react-bootstrap";
 
-export default function NewTable() {
+import api from "../../../services/api"
+export default function NewTable(props) {
   const [show, setShow] = useState(false);
+
+  const [tableCode, setTableCode] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleChange = () => {
+    setIsOpen(!isOpen);
+  };
+
 
   return (
     <>
@@ -18,23 +27,29 @@ export default function NewTable() {
           <Form>
             <Row>
               <Col>
-                <Form.Group className="mb-3" controlId="formName">
+                <Form.Group className="mb-3" controlId="formCOde">
                   <Form.Label>Codigo</Form.Label>
-                  <Form.Control placeholder="" />
+                  <Form.Control placeholder="" onChange={e => setTableCode(e.target.value)} />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formLogin">
+                {/* <Form.Group className="mb-3" controlId="formLogin">
                   <Form.Label>Cliente</Form.Label>
                   <Form.Control placeholder="" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPassword">
                   <Form.Label>Total Pedido</Form.Label>
                   <Form.Control placeholder="" />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formCpf">
+                </Form.Group> */}
+                {/* 
+                <Form.Group className="mb-3" controlId="formIsOpen">
                   <Form.Label>Disponibilidade</Form.Label>
                   <Form.Control placeholder="" />
+                </Form.Group> */}
+                <Form.Group className="mb-3" controlId="formIsOpen">
+                  <Form.Check type="checkbox" label="Disponivel"
+                    checked={isOpen}
+                    onChange={handleChange}
+                  />
                 </Form.Group>
               </Col>
             </Row>
@@ -42,7 +57,25 @@ export default function NewTable() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="success">Adicionar</Button>
+          <Button variant="success" onClick={() => {
+            api
+              .post("/table/new", {
+                code: tableCode,
+                isOpen: true
+              })
+              //.then((response) => setUser(response.data))
+              .catch((err) => {
+                console.error("ops! ocorreu um erro" + err);
+              });
+            setShow(false)
+            api
+              .get("/table/search/all")
+              .then((response) => props.tableDataState(response.data))
+              .catch((err) => {
+                console.error("ops! ocorreu um erro" + err);
+              });
+
+          }}>Adicionar</Button>
           <Button variant="danger" onClick={() => setShow(false)}>
             Cancelar
           </Button>
