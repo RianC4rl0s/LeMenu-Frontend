@@ -10,6 +10,7 @@ export default function NewTable(props) {
 
   const handleChange = () => {
     setIsOpen(!isOpen);
+   
   };
 
 
@@ -61,7 +62,7 @@ export default function NewTable(props) {
             await api
               .post("/table/new", {
                 code: tableCode,
-                isOpen: true
+                isOpen: isOpen
               })
               .then((response) => {} /*console.log(response.data)*/)
               .catch((err) => {
