@@ -20,6 +20,7 @@ export default function Tables() {
       });
 
   }, [])
+
   return (
     <>
       <div style={{ flex: 1, display: "flex" }}>
@@ -64,7 +65,7 @@ export default function Tables() {
                         }</td>
                         <td>
                           <Stack direction="horizontal" gap={1}>
-                            <EditTables />
+                            <EditTables item={item} tableDataState={setTableList} />
                             <OverlayTrigger
                               placement="bottom"
                               overlay={
