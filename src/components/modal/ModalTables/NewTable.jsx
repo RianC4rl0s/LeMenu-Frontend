@@ -57,23 +57,28 @@ export default function NewTable(props) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="success" onClick={() => {
-            api
+          <Button variant="success" onClick={async () => {
+            await api
               .post("/table/new", {
                 code: tableCode,
                 isOpen: true
               })
-              //.then((response) => setUser(response.data))
+              .then((response) => {} /*console.log(response.data)*/)
               .catch((err) => {
                 console.error("ops! ocorreu um erro" + err);
               });
+
+             await api
+                .get("/table/search/all")
+                .then((response) => {
+                  console.log(response.data);
+                  props.tableDataState(response.data);
+                })
+                .catch((err) => {
+                  console.error("ops! ocorreu um erro" + err);
+                });
+
             setShow(false)
-            api
-              .get("/table/search/all")
-              .then((response) => props.tableDataState(response.data))
-              .catch((err) => {
-                console.error("ops! ocorreu um erro" + err);
-              });
 
           }}>Adicionar</Button>
           <Button variant="danger" onClick={() => setShow(false)}>
