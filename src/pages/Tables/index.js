@@ -30,7 +30,7 @@ export default function Tables() {
           <Styled.Container>
             <Styled.BorderContainer>
               <Styled.TitleContainer>
-                <Styled.Text>Mesas</Styled.Text>
+                <p>Mesas</p>
                 <NewTable tableDataState={setTableList} />
               </Styled.TitleContainer>
 
