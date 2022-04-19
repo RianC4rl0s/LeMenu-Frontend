@@ -13,10 +13,6 @@ export default function NewTable(props) {
     setIsOpen(!isOpen);
   };
 
-  const sohwAlert = () =>{
-    return
-  }
-
   return (
     <>
       <Button variant="success" onClick={() => setShow(true)}>
