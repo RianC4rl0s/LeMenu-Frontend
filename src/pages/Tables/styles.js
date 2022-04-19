@@ -46,3 +46,7 @@ export const Image = styled.img`
   padding: 2px;
   margin: 2px;
 `;
+export const Text = styled.Text`
+  font-weight: bold;
+  font-size: 16px;
+`;
