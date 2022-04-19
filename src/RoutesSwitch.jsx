@@ -15,7 +15,6 @@ export default function RoutesSwitch() {
         <Route path="/" element={<App />} />
         <Route path="/adm/mesas" element={<Tables />} />
         <Route path="/adm/produtos" element={<Product />} />
-        <Route path="/adm/produtos-novo" element={<ProductRegister />} />
         <Route path="/adm/cardapio" element={<Menu />} />
         <Route path="/adm/atendentes" element={<Attendants />} />
         <Route path="/adm/atendentes-novo" element={<AttendantsRegister />} />
