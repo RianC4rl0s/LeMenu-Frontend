@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col, Form, Modal, Row, Button,Alert } from "react-bootstrap";
+import { Col, Form, Modal, Row, Button, Alert } from "react-bootstrap";
 
 import api from "../../../services/api";
 export default function NewTable(props) {
@@ -23,7 +23,11 @@ export default function NewTable(props) {
           <Modal.Title>Nova Mesa</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-         {showAlert && <Alert key={1} variant={'danger'}>Preencha os campos</Alert>}
+          {showAlert && (
+            <Alert key={1} variant={"danger"}>
+              Preencha os campos
+            </Alert>
+          )}
           <Form>
             <Row>
               <Col>
@@ -62,70 +66,45 @@ export default function NewTable(props) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-<<<<<<< Updated upstream
-          <Button variant="success" onClick={async () => {
-
-            if(tableCode !== ""){
-
-              
-              await api
-              .post("/table/new", {
-                code: tableCode,
-                isOpen: true
-              })
-              .then((response) => {} /*console.log(response.data)*/)
-              .catch((err) => {
-                console.error("ops! ocorreu um erro" + err);
-              });
-
-              await api
-              .get("/table/search/all")
-              .then((response) => {
-                  console.log(response.data);
-                  props.tableDataState(response.data);
-                })
-                .catch((err) => {
-                  console.error("ops! ocorreu um erro" + err);
-                });
-
-            setShow(false);
-            
-            setShowAlert(false);
-          }else{
-            setShowAlert(true);
-          }
-
-          }}>Adicionar</Button>
-=======
           <Button
             variant="success"
-            onClick={() => {
-              api
-                .post("/table/new", {
-                  code: tableCode,
-                  isOpen: true,
-                })
-                //.then((response) => setUser(response.data))
-                .catch((err) => {
-                  console.error("ops! ocorreu um erro" + err);
-                });
-              setShow(false);
-              api
-                .get("/table/search/all")
-                .then((response) => props.tableDataState(response.data))
-                .catch((err) => {
-                  console.error("ops! ocorreu um erro" + err);
-                });
+            onClick={async () => {
+              if (tableCode !== "") {
+                await api
+                  .post("/table/new", {
+                    code: tableCode,
+                    isOpen: true,
+                  })
+                  .then((response) => {} /*console.log(response.data)*/)
+                  .catch((err) => {
+                    console.error("ops! ocorreu um erro" + err);
+                  });
+
+                await api
+                  .get("/table/search/all")
+                  .then((response) => {
+                    console.log(response.data);
+                    props.tableDataState(response.data);
+                  })
+                  .catch((err) => {
+                    console.error("ops! ocorreu um erro" + err);
+                  });
+
+                setShow(false);
+
+                setShowAlert(false);
+              } else {
+                setShowAlert(true);
+              }
             }}
           >
             Adicionar
           </Button>
->>>>>>> Stashed changes
           <Button variant="danger" onClick={() => setShow(false)}>
             Cancelar
           </Button>
         </Modal.Footer>
-        </Modal>
+      </Modal>
     </>
   );
 }
