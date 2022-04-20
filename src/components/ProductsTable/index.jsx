@@ -1,7 +1,7 @@
 //import { Button } from "bootstrap";
 //import { Modal } from "bootstrap";
 import React from "react";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import {
   Button,
   OverlayTrigger,
@@ -16,7 +16,9 @@ import ProductDetails from "../modal/products/ProductDetails";
 // import EditProduct from "../modal/products/EditProduct";
 import * as Styled from "./styles";
 
+import api from "../../services/api"
 import { FaTrashAlt } from "react-icons/fa";
+import ProductsRegister from "../../pages/ProductsRegister";
 let active = 2;
 let items = [];
 for (let number = 1; number <= 5; number++) {
@@ -59,14 +61,24 @@ const DataTable = () => {
       price: "teste4",
     },
   ]);
+
+  useEffect(() => {
+    api
+      .get("/product/search/all")
+      .then((response) => setProductList(response.data))
+      .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });
+
+  
+
+  }, [])
   return (
     <>
       <Styled.TitleContainer>
         <Styled.Input placeholder="Buscar"></Styled.Input>
         <h3>Produtos</h3>
-        <LinkContainer to="/adm/produtos-novo">
-          <Styled.ButtonGreen>Novo</Styled.ButtonGreen>
-        </LinkContainer>
+        <ProductsRegister/>
       </Styled.TitleContainer>
 
       <Table striped bordered hover>

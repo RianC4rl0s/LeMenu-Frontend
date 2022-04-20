@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col, Form, Modal, Row, Button } from "react-bootstrap";
+import { Col, Form, Modal, Row, Button,Alert } from "react-bootstrap";
 
 import api from "../../../services/api"
 export default function NewTable(props) {
@@ -7,23 +7,23 @@ export default function NewTable(props) {
 
   const [tableCode, setTableCode] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleChange = () => {
     setIsOpen(!isOpen);
   };
-
 
   return (
     <>
       <Button variant="success" onClick={() => setShow(true)}>
         Nova
       </Button>
-
       <Modal show={show} onHide={() => setShow(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Nova Mesa</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+         {showAlert && <Alert key={1} variant={'danger'}>Preencha os campos</Alert>}
           <Form>
             <Row>
               <Col>
@@ -57,30 +57,44 @@ export default function NewTable(props) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="success" onClick={() => {
-            api
+          <Button variant="success" onClick={async () => {
+
+            if(tableCode !== ""){
+
+              
+              await api
               .post("/table/new", {
                 code: tableCode,
                 isOpen: true
               })
-              //.then((response) => setUser(response.data))
+              .then((response) => {} /*console.log(response.data)*/)
               .catch((err) => {
                 console.error("ops! ocorreu um erro" + err);
               });
-            setShow(false)
-            api
+
+              await api
               .get("/table/search/all")
-              .then((response) => props.tableDataState(response.data))
-              .catch((err) => {
-                console.error("ops! ocorreu um erro" + err);
-              });
+              .then((response) => {
+                  console.log(response.data);
+                  props.tableDataState(response.data);
+                })
+                .catch((err) => {
+                  console.error("ops! ocorreu um erro" + err);
+                });
+
+            setShow(false);
+            
+            setShowAlert(false);
+          }else{
+            setShowAlert(true);
+          }
 
           }}>Adicionar</Button>
           <Button variant="danger" onClick={() => setShow(false)}>
             Cancelar
           </Button>
         </Modal.Footer>
-      </Modal>
+        </Modal>
     </>
   );
 }
