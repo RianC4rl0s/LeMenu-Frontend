@@ -17,65 +17,65 @@ export function SideBar() {
         <img src={logo} alt="logo" />
 
         <Stack gap={3}>
-          <LinkContainer to="/adm/produtos">
-            <OverlayTrigger
+          <OverlayTrigger
 
-              placement="right"
-              overlay={
-                <Tooltip>
-                  Produtos
-                </Tooltip>
-              }
-            >
-              {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
+            placement="right"
+            overlay={
+              <Tooltip>
+                Produtos
+              </Tooltip>
+            }
+          >
+            {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
+            <LinkContainer to="/adm/produtos">
               <Styled.Options src={ingredients} alt="ingredients" />
-            </OverlayTrigger>
-          </LinkContainer>
+            </LinkContainer>
+          </OverlayTrigger>
 
-          <LinkContainer to="/adm/cardapio">
-            <OverlayTrigger
+          <OverlayTrigger
 
-              placement="right"
-              overlay={
-                <Tooltip>
-                  Cardápio
-                </Tooltip>
-              }
-            >
+            placement="right"
+            overlay={
+              <Tooltip>
+                Cardápio
+              </Tooltip>
+            }
+          >
 
+            <LinkContainer to="/adm/cardapio">
               <Styled.Options src={cutlery} alt="cutlery" />
-            </OverlayTrigger>
-          </LinkContainer>
+            </LinkContainer>
+          </OverlayTrigger>
 
-          <LinkContainer to="/adm/mesas">
-            <OverlayTrigger
+          <OverlayTrigger
 
-              placement="right"
-              overlay={
-                <Tooltip>
-                  Mesas
-                </Tooltip>
-              }
-            >
+            placement="right"
+            overlay={
+              <Tooltip>
+                Mesas
+              </Tooltip>
+            }
+          >
+            <LinkContainer to="/adm/mesas">
               <Styled.Options src={table} alt="table" />
-            </OverlayTrigger>
-          </LinkContainer>
+            </LinkContainer>
+          </OverlayTrigger>
 
-          <LinkContainer to="/adm/atendentes">
-            <OverlayTrigger
+          <OverlayTrigger
 
-              placement="right"
-              overlay={
-                <Tooltip>
-                  Usuários
-                </Tooltip>
-              }
-            >
-              {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
-              {/* <Styled.Options src={ingredients} alt="ingredients" /> */}
+            placement="right"
+            overlay={
+              <Tooltip>
+                Usuários
+              </Tooltip>
+            }
+          >
+            {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
+            {/* <Styled.Options src={ingredients} alt="ingredients" /> */}
+            <LinkContainer to="/adm/atendentes">
               <Styled.Options src={user} alt="user" />
-            </OverlayTrigger>
-          </LinkContainer>
+            </LinkContainer>
+          </OverlayTrigger>
         </Stack>
       </Styled.ContentTop>
 

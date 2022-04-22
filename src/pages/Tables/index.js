@@ -30,7 +30,6 @@ export default function Tables() {
           <Styled.Container>
             <Styled.BorderContainer>
               <Styled.TitleContainer>
-                <Styled.Input placeholder="Buscar"></Styled.Input>
                 <p>Mesas</p>
                 <NewTable tableDataState={setTableList} />
               </Styled.TitleContainer>
