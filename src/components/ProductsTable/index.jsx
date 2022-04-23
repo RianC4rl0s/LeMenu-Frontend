@@ -31,7 +31,7 @@ for (let number = 1; number <= 5; number++) {
 
 const DataTable = () => {
   // eslint-disable-next-line no-unused-vars
-  const [productList, setProductList] = useState([
+  const [productList, setProductList] = useState([/*
     {
       id: 1,
       piture: "../../../src/assets/berry.jpg",
@@ -60,7 +60,7 @@ const DataTable = () => {
       description: "teste3",
       price: "teste4",
     },
-  ]);
+  */]);
 
   useEffect(() => {
     api
