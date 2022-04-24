@@ -6,7 +6,7 @@ export const ContainerRow = styled.div`
 `;
 
 export const SideBar = styled(ContainerRow)`
-  width: 50px;
+  width: 60px;
   height: 100vh;
   padding: 6px;
   background-color: var(--gray);
@@ -14,11 +14,11 @@ export const SideBar = styled(ContainerRow)`
 `;
 
 export const ContentTop = styled(ContainerRow)`
-  width: 40px;
+  width:50px;
 `;
 
 export const ContentBottom = styled(ContainerRow)`
-  width: 40px;
+  width: 50px;
 `;
 
 export const Options = styled.img`
@@ -26,4 +26,12 @@ export const Options = styled.img`
   border-radius: 6px;
   padding: 2px;
   margin: 2px;
+  &:hover {
+    background-color: #dbdbdb;
+    border: 2px solid #9fff7f;
+  }
+  &:active {
+    background-color: #ffffff;
+    border: 2px solid #60f72d;
+  }
 `;

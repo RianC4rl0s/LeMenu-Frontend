@@ -5,21 +5,25 @@ import * as Styled from "./styles";
 import ProductsTable from "../../components/ProductsTable";
 import Path from "../../components/Path/Path";
 import { Breadcrumb } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 const Product = () => {
   return (
     <>
       <div style={{ flex: 1, display: "flex" }}>
         <SideBar />
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", margin: "20px" }}>
           <TopBar />
           <Styled.Container>
             {/* <Path></Path> */}
             <Breadcrumb>
-              <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
-              <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
-                Library
-              </Breadcrumb.Item>
-              <Breadcrumb.Item active>Data</Breadcrumb.Item>
+              <LinkContainer to="/">
+                <Breadcrumb.Item >Inicio</Breadcrumb.Item>
+              </LinkContainer>
+              <LinkContainer to="/adm/produtos">
+                <Breadcrumb.Item active>
+                  Produtos
+                </Breadcrumb.Item>
+              </LinkContainer>
             </Breadcrumb>
             <Styled.BorderContainer>
               <ProductsTable />
