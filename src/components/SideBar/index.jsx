@@ -7,8 +7,8 @@ import table from "../../assets/table.svg";
 import cutlery from "../../assets/cutlery.svg";
 import user from "../../assets/user.svg";
 import hamburger from "../../assets/hamburgerSvg.svg";
-import { OverlayTrigger, Stack, Tooltip } from "react-bootstrap";
-
+import { Button, OverlayTrigger, Stack, Tooltip } from "react-bootstrap";
+import { FaAppleAlt, FaUserAlt, FaUtensils, FaCube } from 'react-icons/fa'
 
 export function SideBar() {
   return (
@@ -28,7 +28,10 @@ export function SideBar() {
           >
             {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
             <LinkContainer to="/adm/produtos">
-              <Styled.Options src={ingredients} alt="ingredients" />
+              {/* <Styled.Options src={ingredients} alt="ingredients" /> */}
+              <Button variant="outline-primary">
+                <FaAppleAlt></FaAppleAlt>
+              </Button>
             </LinkContainer>
           </OverlayTrigger>
 
@@ -43,7 +46,10 @@ export function SideBar() {
           >
 
             <LinkContainer to="/adm/cardapio">
-              <Styled.Options src={cutlery} alt="cutlery" />
+              {/* <Styled.Options src={cutlery} alt="cutlery" /> */}
+              <Button variant="outline-primary">
+                <FaUtensils></FaUtensils>
+              </Button>
             </LinkContainer>
           </OverlayTrigger>
 
@@ -57,7 +63,10 @@ export function SideBar() {
             }
           >
             <LinkContainer to="/adm/mesas">
-              <Styled.Options src={table} alt="table" />
+              {/* <Styled.Options src={table} alt="table" /> */}
+              <Button variant="outline-primary">
+                <FaCube></FaCube>
+              </Button>
             </LinkContainer>
           </OverlayTrigger>
 
@@ -73,7 +82,10 @@ export function SideBar() {
             {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
             {/* <Styled.Options src={ingredients} alt="ingredients" /> */}
             <LinkContainer to="/adm/atendentes">
-              <Styled.Options src={user} alt="user" />
+              {/* <Styled.Options src={user} alt="user" /> */}
+              <Button variant="outline-primary">
+                <FaUserAlt />
+              </Button>
             </LinkContainer>
           </OverlayTrigger>
         </Stack>

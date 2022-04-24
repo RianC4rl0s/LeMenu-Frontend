@@ -32,11 +32,15 @@ const PeoductsMenu = () => {
     useEffect(() => {
         api
             .get("/product/search/all")
-            .then((response) => setProductList(response.data))
+            .then((response) => {
+                setProductList(response.data.filter(value => value.isOnMenu !== true))
+                setMenu(response.data.filter(value => value.isOnMenu !== false))
+            })
             .catch((err) => {
                 console.error("ops! ocorreu um erro" + err);
             });
-
+        
+        
 
 
     }, [])
@@ -52,9 +56,9 @@ const PeoductsMenu = () => {
                                 {productList.map(item => {
 
                                     return (
-                                        <div key={item.id}>
-                                            {
-                                                !item.isOnMenu &&
+                                        // <div key={item.id}>
+                                        //     {
+                                        //         !item.isOnMenu &&
                                                 <ListGroup.Item key={item.id} as="li" style={{ width: '100%', margin: '5px' }}>
                                                     <Stack direction="horizontal" gap={2}>
                                                         <Figure>
@@ -72,14 +76,23 @@ const PeoductsMenu = () => {
 
                                                         <label>{item.description}</label>
                                                         <Button variant="success" onClick={() => {
+                                                            api
+                                                            .put(`/product/put/${item.id}`)
+                                                            .then((response) => {
+                                                                console.log(response.data);
+                                                            })
+                                                            .catch((err) => {
+                                                                console.error("ops! ocorreu um erro" + err);
+                                                            });
+                                                            item.isOnMenu = true;
                                                             setMenu((prevMenu) => [...prevMenu, item])
                                                             setProductList(productList.filter(value => value.id !== item.id))
                                                         }}><FaPlus /></Button>
                                                     </Stack>
                                                 </ListGroup.Item>
 
-                                            }
-                                        </div>
+                                        //     }
+                                        // </div>
                                     )
                                 })}
                             </ListGroup>
@@ -122,10 +135,10 @@ const PeoductsMenu = () => {
                                         </Stack>
                                     </ListGroup.Item>
                                 ))} */}
-                                {productList.map(item => (
-                                    <div key={item.id}>
-                                        {
-                                            item.isOnMenu &&
+                                {menu.map(item => (
+                                    // <div key={item.id}>
+                                    //     {
+                                    //         item.isOnMenu &&
                                             <ListGroup.Item key={item.id} as="li" style={{ width: '100%', margin: '5px' }}>
                                                 <Stack direction="horizontal" gap={2}>
                                                     <Figure>
@@ -148,25 +161,21 @@ const PeoductsMenu = () => {
                                                                 .put(`/product/peek/${item.id}`)
                                                                 .then((response) => {
                                                                     console.log(response.data);
-                                                                  })
+                                                                })
                                                                 .catch((err) => {
                                                                     console.error("ops! ocorreu um erro" + err);
                                                                 });
-
-                                                            api
-                                                                .get("/product/search/all")
-                                                                .then((response) => setProductList(response.data))
-                                                                .catch((err) => {
-                                                                    console.error("ops! ocorreu um erro" + err);
-                                                                });
+                                                            item.isOnMenu = false;
+                                                            setProductList((prevProduct) => [...prevProduct, item])
+                                                            setMenu(menu.filter(value => value.id !== item.id))
                                                         }}
                                                     >
                                                         <FaMinus />
                                                     </Button>
                                                 </Stack>
                                             </ListGroup.Item>
-                                        }
-                                    </div>
+                                    //     }
+                                    // </div>
                                 ))}
                             </ListGroup>
                         </Card.Body>
