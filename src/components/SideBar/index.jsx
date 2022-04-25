@@ -2,10 +2,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import * as Styled from "./styles";
 
 import logo from "../../assets/logo.svg";
-import ingredients from "../../assets/ingredients.svg";
-import table from "../../assets/table.svg";
-import cutlery from "../../assets/cutlery.svg";
-import user from "../../assets/user.svg";
+// import ingredients from "../../assets/ingredients.svg";
+// import table from "../../assets/table.svg";
+// import cutlery from "../../assets/cutlery.svg";
+// import user from "../../assets/user.svg";
 import hamburger from "../../assets/hamburgerSvg.svg";
 import { Button, OverlayTrigger, Stack, Tooltip } from "react-bootstrap";
 import { FaAppleAlt, FaUserAlt, FaUtensils, FaCube } from 'react-icons/fa'

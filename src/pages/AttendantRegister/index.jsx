@@ -19,6 +19,7 @@ const AttendantRegister = () => {
                         {/* <Styled.BorderContainer>
                             
                         </Styled.BorderContainer> */}
+                        
                         <Card style={{ width: '96%',marginLeft:'50px',marginRight:'50px' }}>
                             <Card.Body>
                                 <Card.Title>Novo Atendente</Card.Title>

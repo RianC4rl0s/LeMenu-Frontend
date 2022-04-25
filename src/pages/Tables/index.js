@@ -1,4 +1,4 @@
-import { Button, OverlayTrigger, Stack, Table, Tooltip } from "react-bootstrap";
+import { Breadcrumb, Button, OverlayTrigger, Stack, Table, Tooltip } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import EditTables from "../../components/modal/ModalTables/EditTable";
 import NewTable from "../../components/modal/ModalTables/NewTable";
@@ -8,6 +8,7 @@ import TopBar from "../../components/TopBar";
 import * as Styled from "./styles";
 import api from "../../services/api"
 import { useEffect, useState } from "react";
+import { LinkContainer } from "react-router-bootstrap";
 export default function Tables() {
   const [tableList, setTableList] = useState([]);
 
@@ -25,9 +26,19 @@ export default function Tables() {
     <>
       <div style={{ flex: 1, display: "flex" }}>
         <SideBar />
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", margin: "20px" }}>
           <TopBar />
           <Styled.Container>
+            <Breadcrumb>
+              <LinkContainer to="/">
+                <Breadcrumb.Item >Inicio</Breadcrumb.Item>
+              </LinkContainer>
+              <LinkContainer to="/adm/mesas">
+                <Breadcrumb.Item active>
+                  Mesas
+                </Breadcrumb.Item>
+              </LinkContainer>
+            </Breadcrumb>
             <Styled.BorderContainer>
               <Styled.TitleContainer>
                 <p>Mesas</p>

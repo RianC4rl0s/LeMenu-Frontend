@@ -126,7 +126,7 @@ const DataTable = () => {
         </tbody>
       </Table>
       {/* <EditProduct /> */}
-      <Pagination>{items}</Pagination>
+      {/* <Pagination>{items}</Pagination> */}
     </>
   );
 };

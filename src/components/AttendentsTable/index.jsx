@@ -62,6 +62,7 @@ const DataTable = () => {
                 <Stack direction="horizontal" gap={1}>
                   <EditAttendent
                     attendantEdit={item.id}
+                    attendant = {item}
                     attendantDataState={setAttendantsList}
                   />
                   <AttendentDetail attendantDetails={item} />
@@ -76,7 +77,7 @@ const DataTable = () => {
         </tbody>
       </Table>
       {/* <EditProduct /> */}
-      <Pagination>{items}</Pagination>
+      {/* <Pagination>{items}</Pagination> */}
     </>
   );
 };

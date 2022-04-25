@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
+  /* display: flex;
   flex: 1;
-  justify-content: center;
+  justify-content: center; */
 `;
 
 export const BorderContainer = styled.div`
