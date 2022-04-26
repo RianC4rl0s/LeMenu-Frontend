@@ -1,5 +1,4 @@
 import { Button, OverlayTrigger, Stack, Table, Tooltip } from "react-bootstrap";
-import { FaSearch } from "react-icons/fa";
 import EditTables from "../../components/modal/ModalTables/EditTable";
 import NewTable from "../../components/modal/ModalTables/NewTable";
 import { SideBar } from "../../components/SideBar";
@@ -8,6 +7,7 @@ import TopBar from "../../components/TopBar";
 import * as Styled from "./styles";
 import api from "../../services/api"
 import { useEffect, useState } from "react";
+import DetailTables from "../../components/modal/ModalTables/DetailTables";
 export default function Tables() {
   const [tableList, setTableList] = useState([]);
 
@@ -65,18 +65,7 @@ export default function Tables() {
                         <td>
                           <Stack direction="horizontal" gap={1}>
                             <EditTables item={item} tableDataState={setTableList} />
-                            <OverlayTrigger
-                              placement="bottom"
-                              overlay={
-                                <Tooltip>
-                                  <strong>Detalhes</strong>
-                                </Tooltip>
-                              }
-                            >
-                              <Button variant="success">
-                                <FaSearch color="white" />
-                              </Button>
-                            </OverlayTrigger>
+                            <DetailTables item={item} />
                           </Stack>
                         </td>
                       </tr>
