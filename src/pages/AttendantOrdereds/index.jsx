@@ -11,9 +11,11 @@ import DetailTables from "../../components/modal/ModalTables/DetailTables";
 
 export default function AttendantOrdereds() {
     const [orderedList, setOrderedList] = useState([
-        { id: 0, code: 0, product: 'pastel', client: 'joao', table: '02',state: null },
-        { id: 0, code: 0, product: 'pastel', client: 'joao', table: '02', state: 'Esperando' },
-        { id: 0, code: 0, product: 'pastel', client: 'joao', table: '02', state: 'Esperando' }]);
+        { id: 0, code: 0, product: 'pastel', client: 'joao', table: '01',state: null },
+        { id: 0, code: 0, product: 'Hot Dog', client: 'maria', table: '02',state: null },
+        { id: 0, code: 0, product: 'pastel', client: 'joao', table: '34', state: 'Esperando' },
+        { id: 0, code: 0, product: 'pastel', client: 'joao', table: '11', state: 'Fazendo' },
+        { id: 0, code: 0, product: 'pastel', client: 'joao', table: '12', state: 'Pronta' }]);
     
     const [newOrderedList, setNewOrderedList] = useState(orderedList.filter((e) => e.state === null));
     const [progressOrderedList, setProgressOrderedList] = useState(orderedList.filter((e) => e.state !== null));
