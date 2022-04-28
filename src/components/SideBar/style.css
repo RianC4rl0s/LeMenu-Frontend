@@ -1,0 +1,29 @@
+.sideBarBtn {
+    width: 60px;
+    height: 60px;
+    color: #49ba41;
+    /* background-color: #dbdbdb; */
+    border: 1px solid #dfdfdf;
+    border-radius: 2px;
+
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+}
+
+.sideBarBtn:hover {
+    background-color: #49ba41;
+    color: #dbdbdb;
+    border: 2px solid #9fff7f;
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+}
+
+.sideBarBtn:active {
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+    background-color: #ffffff;
+    border: 2px solid #60f72d;
+}

@@ -8,17 +8,20 @@ export const ContainerRow = styled.div`
 export const SideBar = styled(ContainerRow)`
   width: 60px;
   height: 100vh;
-  padding: 6px;
+  box-shadow: 2px 2px 6px #7d7d7dac;
+  /* padding: 6px; */
   background-color: var(--gray);
   justify-content: space-between;
+  position: fixed;
 `;
 
 export const ContentTop = styled(ContainerRow)`
-  width:50px;
+  width:60px;
 `;
 
 export const ContentBottom = styled(ContainerRow)`
   width: 50px;
+  margin-left: 6px;
 `;
 
 export const Options = styled.img`
