@@ -1,4 +1,4 @@
-import { Breadcrumb, Button, OverlayTrigger, Stack, Table, Tooltip } from "react-bootstrap";
+import { Breadcrumb, Button, Form, OverlayTrigger, Stack, Table, Tooltip } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import EditTables from "../../components/modal/ModalTables/EditTable";
 import NewTable from "../../components/modal/ModalTables/NewTable";
@@ -22,6 +22,7 @@ export default function Tables() {
 
   }, [])
 
+  const [search, setSearch] = useState("");
   return (
     <>
       <div style={{ flex: 1, display: "flex" }}>
@@ -41,6 +42,10 @@ export default function Tables() {
             </Breadcrumb>
             <Styled.BorderContainer>
               <Styled.TitleContainer>
+                <Form.Group className="mb-3" controlId="formName">
+                  <Form.Label>Buscar</Form.Label>
+                  <Form.Control onChange={(e) => setSearch(e.target.value)} placeholder="" />
+                </Form.Group>
                 <p>Mesas</p>
                 <NewTable tableDataState={setTableList} />
               </Styled.TitleContainer>
@@ -57,7 +62,7 @@ export default function Tables() {
                 </thead>
                 <tbody>
                   {
-                    tableList.map(item => (
+                    tableList.filter(tables => tables.code.includes(search)).map(item => (
                       <tr key={item.id}>
                         <td>{item.code}</td>
                         <td>

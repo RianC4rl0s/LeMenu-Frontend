@@ -1,16 +1,17 @@
 //import { Button } from "bootstrap";
 //import { Modal } from "bootstrap";
 import React from "react";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
+  Form,
   OverlayTrigger,
   Pagination,
   Stack,
   Table,
   Tooltip,
 } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+// import { LinkContainer } from "react-router-bootstrap";
 import EditProduct from "../modal/products/EditProduct";
 import ProductDetails from "../modal/products/ProductDetails";
 // import EditProduct from "../modal/products/EditProduct";
@@ -70,15 +71,20 @@ const DataTable = () => {
         console.error("ops! ocorreu um erro" + err);
       });
 
-  
+
 
   }, [])
+  const [search, setSearch] = useState("");
   return (
     <>
       <Styled.TitleContainer>
-        <Styled.Input placeholder="Buscar"></Styled.Input>
+        {/* <Styled.Input placeholder="Buscar" onC ></Styled.Input> */}
+        <Form.Group className="mb-3" controlId="formName">
+          <Form.Label>Buscar</Form.Label>
+          <Form.Control onChange={(e) => setSearch(e.target.value)} placeholder="" />
+        </Form.Group>
         <h3>Produtos</h3>
-        <ProductsRegister/>
+        <ProductsRegister />
       </Styled.TitleContainer>
 
       <Table striped bordered hover>
@@ -93,35 +99,35 @@ const DataTable = () => {
           </tr>
         </thead>
         <tbody>
-          {productList.map((item) => (
-            <tr key={item.id}>
-              <td>
-                <img src={item.piture} alt="Foto" />
-              </td>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-              <td>{item.description}</td>
-              <td>{item.price}</td>
-              <td>
-                <Stack direction="horizontal" gap={1}>
-                  <EditProduct />
-                  <ProductDetails />
-                  <OverlayTrigger
-                    placement="bottom"
-                    overlay={
-                      <Tooltip id={`tooltip-detalhes`}>
-                        <strong>Remover</strong>.
-                      </Tooltip>
-                    }
-                  >
-                    <Button variant="danger">
-                      {/* Editar */}
-                      <FaTrashAlt />
-                    </Button>
-                  </OverlayTrigger>
-                </Stack>
-              </td>
-            </tr>
+          {productList.filter(products => products.name.includes(search)).map((item) => (
+          <tr key={item.id}>
+            <td>
+              <img src={item.piture} alt="Foto" />
+            </td>
+            <td>{item.id}</td>
+            <td>{item.name}</td>
+            <td>{item.description}</td>
+            <td>{item.price}</td>
+            <td>
+              <Stack direction="horizontal" gap={1}>
+                <EditProduct />
+                <ProductDetails />
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={
+                    <Tooltip id={`tooltip-detalhes`}>
+                      <strong>Remover</strong>.
+                    </Tooltip>
+                  }
+                >
+                  <Button variant="danger">
+                    {/* Editar */}
+                    <FaTrashAlt />
+                  </Button>
+                </OverlayTrigger>
+              </Stack>
+            </td>
+          </tr>
           ))}
         </tbody>
       </Table>
