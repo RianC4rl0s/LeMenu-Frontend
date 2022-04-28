@@ -20,6 +20,9 @@ import * as Styled from "./styles";
 import api from "../../services/api"
 import { FaTrashAlt } from "react-icons/fa";
 import ProductsRegister from "../../pages/ProductsRegister";
+
+
+import { base64ToBlob } from "../../utils/bloob"
 let active = 2;
 let items = [];
 for (let number = 1; number <= 5; number++) {
@@ -74,6 +77,12 @@ const DataTable = () => {
 
 
   }, [])
+  const toBlob = (img) => {
+    const blob = base64ToBlob({ base64: img, type: "image" });
+    const url = URL.createObjectURL(blob);
+    // console.log(url);
+    return url;
+  }
   const [search, setSearch] = useState("");
   return (
     <>
@@ -100,34 +109,35 @@ const DataTable = () => {
         </thead>
         <tbody>
           {productList.filter(products => products.name.includes(search)).map((item) => (
-          <tr key={item.id}>
-            <td>
-              <img src={item.piture} alt="Foto" />
-            </td>
-            <td>{item.id}</td>
-            <td>{item.name}</td>
-            <td>{item.description}</td>
-            <td>{item.price}</td>
-            <td>
-              <Stack direction="horizontal" gap={1}>
-                <EditProduct />
-                <ProductDetails />
-                <OverlayTrigger
-                  placement="bottom"
-                  overlay={
-                    <Tooltip id={`tooltip-detalhes`}>
-                      <strong>Remover</strong>.
-                    </Tooltip>
-                  }
-                >
-                  <Button variant="danger">
-                    {/* Editar */}
-                    <FaTrashAlt />
-                  </Button>
-                </OverlayTrigger>
-              </Stack>
-            </td>
-          </tr>
+            <tr key={item.id}>
+              <td>
+
+                <img src={toBlob(item.image)} height="50px" alt="Foto" />
+              </td>
+              <td>{item.id}</td>
+              <td>{item.name}</td>
+              <td>{item.description}</td>
+              <td>{item.price}</td>
+              <td>
+                <Stack direction="horizontal" gap={1}>
+                  <EditProduct />
+                  <ProductDetails />
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={
+                      <Tooltip id={`tooltip-detalhes`}>
+                        <strong>Remover</strong>.
+                      </Tooltip>
+                    }
+                  >
+                    <Button variant="danger">
+                      {/* Editar */}
+                      <FaTrashAlt />
+                    </Button>
+                  </OverlayTrigger>
+                </Stack>
+              </td>
+            </tr>
           ))}
         </tbody>
       </Table>

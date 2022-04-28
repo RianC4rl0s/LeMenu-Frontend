@@ -12,6 +12,8 @@ const ProductRegister = () => {
     const [price, setPrice] = useState();
     const [promotion, setPromotion] = useState();
     const [show, setShow] = useState(false);
+
+    const [imgString, setImgString] = useState();
     // create a preview as a side effect, whenever selected file is changed
     useEffect(() => {
         if (!selectedFile) {
@@ -25,7 +27,6 @@ const ProductRegister = () => {
         // free memory when ever this component is unmounted
         return () => URL.revokeObjectURL(objectUrl)
     }, [selectedFile])
-
     const onSelectFile = e => {
         if (!e.target.files || e.target.files.length === 0) {
             setSelectedFile(undefined)
@@ -34,17 +35,56 @@ const ProductRegister = () => {
 
         // I've kept this example simple by using the first image instead of multiple
         setSelectedFile(e.target.files[0])
-    }
 
+        const fileInput = e.target.files[0];
+        const fileReader = new FileReader();
+
+        fileReader.readAsDataURL(fileInput);
+        fileReader.onload = async function () {
+            const arrayBuffer = this.result;
+
+            if (arrayBuffer !== undefined) {
+                const arr = arrayBuffer.split(",");
+
+                setImgString(arr[arr.length - 1])
+            }
+        };
+    }
+    // const loadFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     if (event.target.files == null || event.target.files.length == 0) return;
+
+    //     const fileInput = event.target.files[0];
+    //     const fileReader = new FileReader();
+
+    //     fileReader.readAsDataURL(fileInput);
+    //     fileReader.onload = async function () {
+    //       const arrayBuffer = this.result as string;
+
+    //       if (arrayBuffer != undefined) {
+    //         const arr = arrayBuffer.split(",");
+
+    //         const file: FileType = {
+    //           name: fileInput.name,
+    //           type: fileInput.type,
+    //           bytes: arr[arr.length - 1],
+    //           date: "",
+    //           unidadeId: 0,
+    //         };
+
+    //         props.sendFile(file);
+    //       }
+    //     };
+    //   };
     async function newProduct() {
         await api
             .post("/product/new", {
-                piture: "../../../src/assets/berry.jpg",
+                image: imgString,
                 name: name,
                 description: description,
                 price: price,
                 sale: promotion,
-                isOnMenu:false,
+                isOnMenu: false,
+
             })
             .then((response) => { } /*console.log(response.data)*/)
             .catch((err) => {
