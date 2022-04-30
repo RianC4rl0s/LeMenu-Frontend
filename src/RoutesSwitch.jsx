@@ -10,6 +10,8 @@ import AttendantsRegister from "./pages/AttendantRegister";
 import Menu from "./pages/Menu";
 import Tables from "./pages/Tables";
 import TablesClerk from "./pages/TablesAttendant";
+import ProductAttendant from "./pages/ProductsAttendant";
+import MenuAttendant from "./pages/MenuAttendant";
 export default function RoutesSwitch() {
   return (
     <BrowserRouter>
@@ -24,6 +26,8 @@ export default function RoutesSwitch() {
 
         {/*Rotas Atendente*/}
         <Route path="/clerk/mesas" element={<TablesClerk />} />
+        <Route path="/clerk/produtos" element={<ProductAttendant />} />
+        <Route path="/clerk/cardapio" element={<MenuAttendant />} />
       </Routes>
     </BrowserRouter>
   );

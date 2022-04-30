@@ -61,7 +61,7 @@ export default function Tables() {
                     placeholder=""
                   />
                 </Form.Group>
-                <p>Mesas</p>
+                <h3>Mesas</h3>
                 <NewTable tableDataState={setTableList} />
               </Styled.TitleContainer>
 

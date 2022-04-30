@@ -32,40 +32,9 @@ for (let number = 1; number <= 5; number++) {
   );
 }
 
-const DataTable = () => {
+const DataTableAttendant = () => {
   // eslint-disable-next-line no-unused-vars
-  const [productList, setProductList] = useState([
-    /*
-    {
-      id: 1,
-      piture: "../../../src/assets/berry.jpg",
-      name: "teste2",
-      description: "teste3",
-      price: "teste4",
-    },
-    {
-      id: 2,
-      piture: "../../../src/assets/berry.jpg",
-      name: "teste2",
-      description: "teste3",
-      price: "teste4",
-    },
-    {
-      id: 3,
-      piture: "../../../src/assets/berry.jpg",
-      name: "teste2",
-      description: "teste3",
-      price: "teste4",
-    },
-    {
-      id: 4,
-      piture: "../../../src/assets/berry.jpg",
-      name: "teste2",
-      description: "teste3",
-      price: "teste4",
-    },
-  */
-  ]);
+  const [productList, setProductList] = useState([]);
 
   useEffect(() => {
     api
@@ -94,7 +63,6 @@ const DataTable = () => {
           />
         </Form.Group>
         <h3>Produtos</h3>
-        <ProductsRegister productsState={setProductList} />
       </Styled.TitleContainer>
 
       <Table striped bordered hover>
@@ -122,40 +90,7 @@ const DataTable = () => {
                 <td>{item.price}</td>
                 <td>
                   <Stack direction="horizontal" gap={1}>
-                    <EditProduct />
                     {/* <ProductDetails/> */}
-                    <OverlayTrigger
-                      placement="bottom"
-                      overlay={
-                        <Tooltip id={`tooltip-detalhes`}>
-                          <strong>Remover</strong>.
-                        </Tooltip>
-                      }
-                    >
-                      <Button
-                        variant="danger"
-                        onClick={async () => {
-                          await api
-                            .delete(`/product/delete/${item.id}`)
-                            .then((response) => {
-                              console.log(response.data);
-                            })
-                            .catch((err) => {
-                              console.error("ops! ocorreu um erro" + err);
-                            });
-
-                          api
-                            .get("/product/search/all")
-                            .then((response) => setProductList(response.data))
-                            .catch((err) => {
-                              console.error("ops! ocorreu um erro" + err);
-                            });
-                        }}
-                      >
-                        {/* Editar */}
-                        <FaTrashAlt />
-                      </Button>
-                    </OverlayTrigger>
                   </Stack>
                 </td>
               </tr>
@@ -168,4 +103,4 @@ const DataTable = () => {
   );
 };
 
-export default DataTable;
+export default DataTableAttendant;

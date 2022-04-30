@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
-import { SideBar } from "../../components/SideBar";
+import { SideBarAttendant } from "../../components/SideBarAttendant";
 import TopBar from "../../components/TopBar";
 
 import * as Styled from "./styles";
@@ -31,7 +31,7 @@ export default function TablesClerk() {
   return (
     <>
       <div style={{ flex: 1, display: "flex" }}>
-        <SideBar />
+        <SideBarAttendant />
         <div
           style={{
             flex: 1,
@@ -59,7 +59,7 @@ export default function TablesClerk() {
                     placeholder=""
                   />
                 </Form.Group>
-                <p>Mesas</p>
+                <h3>Mesas</h3>
               </Styled.TitleContainer>
 
               <Table striped bordered hover>
