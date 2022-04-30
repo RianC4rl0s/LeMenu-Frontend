@@ -18,6 +18,7 @@ const EditProduct = () => {
   const handleShow = () => setShow(true);
 
   const [selectedFile, setSelectedFile] = useState();
+  // eslint-disable-next-line no-unused-vars
   const [preview, setPreview] = useState();
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
@@ -33,6 +34,7 @@ const EditProduct = () => {
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
+  // eslint-disable-next-line no-unused-vars
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
@@ -65,17 +67,17 @@ const EditProduct = () => {
         <Modal.Body>
           <Form>
             <Row>
-              <Col>
+              {/* <Col>
                 <Styled.ImgPreview>
                   {selectedFile && (
                     <img alt="pic" src={preview} width="300" height="300" />
                   )}
                 </Styled.ImgPreview>
                 <Form.Group controlId="formFile" className="mb-3">
-                  {/* <Form.Label></Form.Label> */}
+                 
                   <Form.Control type="file" onChange={onSelectFile} />
                 </Form.Group>
-              </Col>
+              </Col> */}
               <Col>
                 <Form.Group className="mb-3" controlId="formName">
                   <Form.Label>Nome</Form.Label>

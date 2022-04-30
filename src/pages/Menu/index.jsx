@@ -3,7 +3,7 @@ import { SideBar } from "../../components/SideBar";
 import TopBar from "../../components/TopBar";
 //import * as Styled from "./styles";
 import ProductsMenu from "../../components/misc/ProductsMenu"
-import Path from "../../components/Path/Path"
+// import Path from "../../components/Path/Path"
 import { Breadcrumb, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 const Menu = () => {

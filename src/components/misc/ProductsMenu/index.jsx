@@ -6,6 +6,7 @@ import { Button, Card, Col, Figure, ListGroup, Pagination, Row, Stack } from "re
 import { FaPlus } from 'react-icons/fa'
 import { FaMinus } from 'react-icons/fa'
 
+import { base64ToBlob } from "../../../utils/bloob"
 import api from "../../../services/api"
 // import EditProduct from "../modal/products/EditProduct";
 // import * as Styled from "./styles";
@@ -23,12 +24,13 @@ for (let number = 1; number <= 5; number++) {
 const PeoductsMenu = () => {
     // eslint-disable-next-line no-unused-vars
     const [productList, setProductList] = useState([/*
-        { id: 1, piture: "../../../src/assets/berry.jpg", name: "Cumida", description: "teste3", price: "teste4" },
-        { id: 2, piture: "../../../src/assets/berry.jpg", name: "teste2", description: "teste3", price: "teste4" },
-        { id: 3, piture: "../../../src/assets/berry.jpg", name: "teste2", description: "teste3", price: "teste4" },
-        { id: 4, piture: "../../../src/assets/berry.jpg", name: "teste2", description: "teste3", price: "teste4" },
-
+    { id: 1, piture: "../../../src/assets/berry.jpg", name: "Cumida", description: "teste3", price: "teste4" },
+    { id: 2, piture: "../../../src/assets/berry.jpg", name: "teste2", description: "teste3", price: "teste4" },
+    { id: 3, piture: "../../../src/assets/berry.jpg", name: "teste2", description: "teste3", price: "teste4" },
+    { id: 4, piture: "../../../src/assets/berry.jpg", name: "teste2", description: "teste3", price: "teste4" },
+    
 */]);
+    const [menu, setMenu] = useState([])
     useEffect(() => {
         api
             .get("/product/search/all")
@@ -39,12 +41,18 @@ const PeoductsMenu = () => {
             .catch((err) => {
                 console.error("ops! ocorreu um erro" + err);
             });
-        
-        
+
+
 
 
     }, [])
-    const [menu, setMenu] = useState([])
+
+    const toBlob = (img) => {
+        const blob = base64ToBlob({ base64: img, type: "image" });
+        const url = URL.createObjectURL(blob);
+        // console.log(url);
+        return url;
+    }
     return (
         <>
             <Row>
@@ -59,37 +67,37 @@ const PeoductsMenu = () => {
                                         // <div key={item.id}>
                                         //     {
                                         //         !item.isOnMenu &&
-                                                <ListGroup.Item key={item.id} as="li" style={{ width: '100%', margin: '5px' }}>
-                                                    <Stack direction="horizontal" gap={2}>
-                                                        <Figure>
-                                                            <Figure.Image
-                                                                width={30}
-                                                                height={30}
-                                                                alt="Foto da Comida"
-                                                                src={item.piture}
-                                                            />
-                                                            <Figure.Caption>
-                                                                {item.name}
-                                                            </Figure.Caption>
-                                                        </Figure>
-                                                        <label>{item.price}</label>
+                                        <ListGroup.Item key={item.id} as="li" style={{ width: '100%', margin: '5px' }}>
+                                            <Stack direction="horizontal" gap={2}>
+                                                <Figure>
+                                                    <Figure.Image
+                                                        width={30}
+                                                        height={30}
+                                                        alt="Foto da Comida"
+                                                        src={toBlob(item.image)}
+                                                    />
+                                                    <Figure.Caption>
+                                                        {item.name}
+                                                    </Figure.Caption>
+                                                </Figure>
+                                                <label>{item.price}</label>
 
-                                                        <label>{item.description}</label>
-                                                        <Button variant="success" onClick={() => {
-                                                            api
-                                                            .put(`/product/put/${item.id}`)
-                                                            .then((response) => {
-                                                                console.log(response.data);
-                                                            })
-                                                            .catch((err) => {
-                                                                console.error("ops! ocorreu um erro" + err);
-                                                            });
-                                                            item.isOnMenu = true;
-                                                            setMenu((prevMenu) => [...prevMenu, item])
-                                                            setProductList(productList.filter(value => value.id !== item.id))
-                                                        }}><FaPlus /></Button>
-                                                    </Stack>
-                                                </ListGroup.Item>
+                                                <label>{item.description}</label>
+                                                <Button variant="success" onClick={() => {
+                                                    api
+                                                        .put(`/product/put/${item.id}`)
+                                                        .then((response) => {
+                                                            console.log(response.data);
+                                                        })
+                                                        .catch((err) => {
+                                                            console.error("ops! ocorreu um erro" + err);
+                                                        });
+                                                    item.isOnMenu = true;
+                                                    setMenu((prevMenu) => [...prevMenu, item])
+                                                    setProductList(productList.filter(value => value.id !== item.id))
+                                                }}><FaPlus /></Button>
+                                            </Stack>
+                                        </ListGroup.Item>
 
                                         //     }
                                         // </div>
@@ -139,41 +147,41 @@ const PeoductsMenu = () => {
                                     // <div key={item.id}>
                                     //     {
                                     //         item.isOnMenu &&
-                                            <ListGroup.Item key={item.id} as="li" style={{ width: '100%', margin: '5px' }}>
-                                                <Stack direction="horizontal" gap={2}>
-                                                    <Figure>
-                                                        <Figure.Image
-                                                            width={30}
-                                                            height={30}
-                                                            alt="Foto da Comida"
-                                                            src={item.piture}
-                                                        />
-                                                        <Figure.Caption>
-                                                            {item.name}
-                                                        </Figure.Caption>
-                                                    </Figure>
-                                                    <label>{item.price}</label>
+                                    <ListGroup.Item key={item.id} as="li" style={{ width: '100%', margin: '5px' }}>
+                                        <Stack direction="horizontal" gap={2}>
+                                            <Figure>
+                                                <Figure.Image
+                                                    width={30}
+                                                    height={30}
+                                                    alt="Foto da Comida"
+                                                    src={toBlob(item.image)}
+                                                />
+                                                <Figure.Caption>
+                                                    {item.name}
+                                                </Figure.Caption>
+                                            </Figure>
+                                            <label>{item.price}</label>
 
-                                                    <label>{item.description}</label>
-                                                    <Button variant="danger"
-                                                        onClick={() => {
-                                                            api
-                                                                .put(`/product/peek/${item.id}`)
-                                                                .then((response) => {
-                                                                    console.log(response.data);
-                                                                })
-                                                                .catch((err) => {
-                                                                    console.error("ops! ocorreu um erro" + err);
-                                                                });
-                                                            item.isOnMenu = false;
-                                                            setProductList((prevProduct) => [...prevProduct, item])
-                                                            setMenu(menu.filter(value => value.id !== item.id))
-                                                        }}
-                                                    >
-                                                        <FaMinus />
-                                                    </Button>
-                                                </Stack>
-                                            </ListGroup.Item>
+                                            <label>{item.description}</label>
+                                            <Button variant="danger"
+                                                onClick={() => {
+                                                    api
+                                                        .put(`/product/peek/${item.id}`)
+                                                        .then((response) => {
+                                                            console.log(response.data);
+                                                        })
+                                                        .catch((err) => {
+                                                            console.error("ops! ocorreu um erro" + err);
+                                                        });
+                                                    item.isOnMenu = false;
+                                                    setProductList((prevProduct) => [...prevProduct, item])
+                                                    setMenu(menu.filter(value => value.id !== item.id))
+                                                }}
+                                            >
+                                                <FaMinus />
+                                            </Button>
+                                        </Stack>
+                                    </ListGroup.Item>
                                     //     }
                                     // </div>
                                 ))}

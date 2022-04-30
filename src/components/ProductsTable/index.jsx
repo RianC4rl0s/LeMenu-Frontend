@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap";
 // import { LinkContainer } from "react-router-bootstrap";
 import EditProduct from "../modal/products/EditProduct";
-import ProductDetails from "../modal/products/ProductDetails";
+// import ProductDetails from "../modal/products/ProductDetails";
 // import EditProduct from "../modal/products/EditProduct";
 import * as Styled from "./styles";
 
@@ -93,7 +93,7 @@ const DataTable = () => {
           <Form.Control onChange={(e) => setSearch(e.target.value)} placeholder="" />
         </Form.Group>
         <h3>Produtos</h3>
-        <ProductsRegister />
+        <ProductsRegister productsState={setProductList} />
       </Styled.TitleContainer>
 
       <Table striped bordered hover>
@@ -121,7 +121,7 @@ const DataTable = () => {
               <td>
                 <Stack direction="horizontal" gap={1}>
                   <EditProduct />
-                  <ProductDetails />
+                  {/* <ProductDetails/> */}
                   <OverlayTrigger
                     placement="bottom"
                     overlay={
@@ -130,7 +130,23 @@ const DataTable = () => {
                       </Tooltip>
                     }
                   >
-                    <Button variant="danger">
+                    <Button variant="danger" onClick={async () => {
+                      await api
+                        .delete(`/product/delete/${item.id}`)
+                        .then((response) => {
+                          console.log(response.data);
+                        })
+                        .catch((err) => {
+                          console.error("ops! ocorreu um erro" + err);
+                        });
+
+                      api
+                        .get("/product/search/all")
+                        .then((response) => setProductList(response.data))
+                        .catch((err) => {
+                          console.error("ops! ocorreu um erro" + err);
+                        });
+                    }}>
                       {/* Editar */}
                       <FaTrashAlt />
                     </Button>

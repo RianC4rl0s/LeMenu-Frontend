@@ -4,7 +4,7 @@ import * as Styled from "./styles";
 import api from "../../services/api"
 import { Card, Col, Form, Image, Row, Modal } from "react-bootstrap";
 // import { Button } from "bootstrap";
-const ProductRegister = () => {
+const ProductRegister = (props) => {
     const [selectedFile, setSelectedFile] = useState()
     const [preview, setPreview] = useState()
     const [name, setName] = useState();
@@ -90,7 +90,17 @@ const ProductRegister = () => {
             .catch((err) => {
                 console.error("ops! ocorreu um erro" + err);
             });
+
+
         setShow(false)
+        api
+            .get("/product/search/all")
+            .then((response) => props.productsState(response.data))
+            .catch((err) => {
+                console.error("ops! ocorreu um erro" + err);
+            });
+
+
     }
     return (
         <>
@@ -108,7 +118,7 @@ const ProductRegister = () => {
                                     </Styled.ImgPreview>
                                     <Form.Group controlId="formFile" className="mb-3">
                                         {/* <Form.Label></Form.Label> */}
-                                        <Form.Control type="file" onChange={onSelectFile} />
+                                        <Form.Control accept="image/png, image/gif, image/jpeg" type="file" acc onChange={onSelectFile} />
                                     </Form.Group>
                                 </Col>
                                 <Col>
