@@ -9,6 +9,7 @@ import Attendants from "./pages/Attendants";
 import AttendantsRegister from "./pages/AttendantRegister";
 import Menu from "./pages/Menu";
 import Tables from "./pages/Tables";
+import TablesClerk from "./pages/TablesAttendant";
 export default function RoutesSwitch() {
   return (
     <BrowserRouter>
@@ -20,6 +21,9 @@ export default function RoutesSwitch() {
         <Route path="/adm/cardapio" element={<Menu />} />
         <Route path="/adm/atendentes" element={<Attendants />} />
         <Route path="/adm/atendentes-novo" element={<AttendantsRegister />} />
+
+        {/*Rotas Atendente*/}
+        <Route path="/clerk/mesas" element={<TablesClerk />} />
       </Routes>
     </BrowserRouter>
   );

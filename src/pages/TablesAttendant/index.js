@@ -8,8 +8,6 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
-import EditTables from "../../components/modal/ModalTables/EditTable";
-import NewTable from "../../components/modal/ModalTables/NewTable";
 import { SideBar } from "../../components/SideBar";
 import TopBar from "../../components/TopBar";
 
@@ -17,7 +15,7 @@ import * as Styled from "./styles";
 import api from "../../services/api";
 import { useEffect, useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
-export default function Tables() {
+export default function TablesClerk() {
   const [tableList, setTableList] = useState([]);
 
   useEffect(() => {
@@ -48,7 +46,7 @@ export default function Tables() {
               <LinkContainer to="/">
                 <Breadcrumb.Item>Inicio</Breadcrumb.Item>
               </LinkContainer>
-              <LinkContainer to="/adm/mesas">
+              <LinkContainer to="/clerk/mesas">
                 <Breadcrumb.Item active>Mesas</Breadcrumb.Item>
               </LinkContainer>
             </Breadcrumb>
@@ -62,7 +60,6 @@ export default function Tables() {
                   />
                 </Form.Group>
                 <p>Mesas</p>
-                <NewTable tableDataState={setTableList} />
               </Styled.TitleContainer>
 
               <Table striped bordered hover>
@@ -98,11 +95,8 @@ export default function Tables() {
                         </td>
                         <td>
                           <Stack direction="horizontal" gap={1}>
-                            <EditTables
-                              item={item}
-                              tableDataState={setTableList}
-                            />
-                            {/* <OverlayTrigger
+                            {/*
+                            <OverlayTrigger
                               placement="bottom"
                               overlay={
                                 <Tooltip>
@@ -118,29 +112,6 @@ export default function Tables() {
                         </td>
                       </tr>
                     ))}
-                  {/* <tr>
-                    <td>123</td>
-                    <td>João</td>
-                    <td>0,00R$</td>
-                    <td>Não</td>
-                    <td>
-                      <Stack direction="horizontal" gap={1}>
-                        <EditTables />
-                        <OverlayTrigger
-                          placement="bottom"
-                          overlay={
-                            <Tooltip>
-                              <strong>Detalhes</strong>
-                            </Tooltip>
-                          }
-                        >
-                          <Button variant="success">
-                            <FaSearch color="white" />
-                          </Button>
-                        </OverlayTrigger>
-                      </Stack>
-                    </td>
-                  </tr> */}
                 </tbody>
               </Table>
             </Styled.BorderContainer>
