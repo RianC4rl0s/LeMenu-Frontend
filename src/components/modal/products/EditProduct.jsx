@@ -90,12 +90,17 @@ const EditProduct = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPrice">
                   <Form.Label>Preço</Form.Label>
-                  <Form.Control placeholder="" />
+                  <Form.Control placeholder=""
+                    type="number" min={0}
+                    required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formGridAddress2">
                   <Form.Label>Promoção</Form.Label>
-                  <Form.Control placeholder="" />
+                  <Form.Control placeholder=""
+                    type="number" min={0}
+                    required
+                  />
                 </Form.Group>
               </Col>
             </Row>

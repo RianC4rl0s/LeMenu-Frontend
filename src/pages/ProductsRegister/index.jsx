@@ -118,7 +118,7 @@ const ProductRegister = (props) => {
                                     </Styled.ImgPreview>
                                     <Form.Group controlId="formFile" className="mb-3">
                                         {/* <Form.Label></Form.Label> */}
-                                        <Form.Control accept="image/png, image/gif, image/jpeg" type="file" acc onChange={onSelectFile} />
+                                        <Form.Control accept="image/png, image/gif, image/jpeg" type="file" /*acc*/ onChange={onSelectFile} />
                                     </Form.Group>
                                 </Col>
                                 <Col>
@@ -127,6 +127,7 @@ const ProductRegister = (props) => {
                                         <Form.Label>Nome</Form.Label>
                                         <Form.Control placeholder=""
                                             onChange={(e) => setName(e.target.value)}
+                                            required
                                         />
                                     </Form.Group>
 
@@ -134,12 +135,15 @@ const ProductRegister = (props) => {
                                         <Form.Label>Descrição</Form.Label>
                                         <Form.Control placeholder=""
                                             onChange={(e) => setDescription(e.target.value)}
+                                            required
                                         />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="formPrice">
                                         <Form.Label>Preço</Form.Label>
                                         <Form.Control placeholder=""
+                                            type="number" min={0}
                                             onChange={(e) => setPrice(e.target.value)}
+                                            required
                                         />
                                     </Form.Group>
 
@@ -147,6 +151,8 @@ const ProductRegister = (props) => {
                                         <Form.Label>Promoção</Form.Label>
                                         <Form.Control placeholder=""
                                             onChange={(e) => setPromotion(e.target.value)}
+                                            type="number" min={0}
+                                            required
                                         />
                                     </Form.Group>
                                 </Col>
