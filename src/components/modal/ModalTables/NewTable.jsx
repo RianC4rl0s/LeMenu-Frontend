@@ -11,6 +11,7 @@ export default function NewTable(props) {
 
   const handleChange = () => {
     setIsOpen(!isOpen);
+   
   };
 
   return (
@@ -66,6 +67,7 @@ export default function NewTable(props) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+
           <Button
             variant="success"
             onClick={async () => {
@@ -73,7 +75,7 @@ export default function NewTable(props) {
                 await api
                   .post("/table/new", {
                     code: tableCode,
-                    isOpen: true,
+                    isOpen: isOpen,
                   })
                   .then((response) => {} /*console.log(response.data)*/)
                   .catch((err) => {

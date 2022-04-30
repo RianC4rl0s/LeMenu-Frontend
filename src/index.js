@@ -6,6 +6,7 @@
 import { render } from "react-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+// import "./styles/custom.scss"
 // import { BrowserRouter, Routes,Route } from "react-router-dom";
 import RoutesSwitch from "./RoutesSwitch";
 import { GlobalStyle } from "./styles/global";

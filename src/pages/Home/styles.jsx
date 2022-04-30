@@ -41,8 +41,3 @@ export const Button = styled.button`
   border-radius: 6px;
   padding: 10px 4px 10px 4px;
 `;
-
-export const Image = styled.img`
-  padding: 2px;
-  margin: 2px;
-`;

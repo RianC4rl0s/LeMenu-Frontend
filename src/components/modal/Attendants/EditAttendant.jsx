@@ -7,19 +7,20 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import * as Styled from "./styles";
 import api from "../../../services/api";
 
 import { FaPen } from "react-icons/fa";
+// import attendants from "../../../pages/Attendants";
 const EditAttendant = (props) => {
   const [show, setShow] = useState(false);
 
-  const [userName, setUserName] = useState("");
-  const [userLogin, setUserLogin] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [userCpf, setUserCpf] = useState("");
-  const [userPhone, setUserPhone] = useState("");
+  const [userName, setUserName] = useState(props.attendant.name);
+  const [userLogin, setUserLogin] = useState(props.attendant.login);
+  const [userPassword, setUserPassword] = useState(props.attendant.password);
+  const [userCpf, setUserCpf] = useState(props.attendant.cpf);
+  const [userPhone, setUserPhone] = useState(props.attendant.phone);
 
   async function edit(id) {
     return api
@@ -44,7 +45,6 @@ const EditAttendant = (props) => {
         console.error("ops! ocorreu um erro para listar" + err);
       });
   }
-
   return (
     <>
       <OverlayTrigger
@@ -71,38 +71,40 @@ const EditAttendant = (props) => {
                 <Form.Group className="mb-3" controlId="formName">
                   <Form.Label>Nome</Form.Label>
                   <Form.Control
-                    placeholder={null}
+                    placeholder={props.attendant.name}
                     onChange={(e) => setUserName(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formLogin">
                   <Form.Label>Login</Form.Label>
                   <Form.Control
-                    placeholder={null}
+                    placeholder={props.attendant.login}
                     onChange={(e) => setUserLogin(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPassword">
                   <Form.Label>Senha</Form.Label>
                   <Form.Control
-                    placeholder={null}
+                    placeholder={props.attendant.password}
+                    
                     onChange={(e) => setUserPassword(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formCpf">
                   <Form.Label>Cpf</Form.Label>
                   <Form.Control
-                    placeholder={null}
+                    placeholder={props.attendant.cpf}
                     onChange={(e) => setUserCpf(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formTelefone">
                   <Form.Label>Telefone</Form.Label>
                   <Form.Control
-                    placeholder={null}
+                    placeholder={props.attendant.phone}
                     onChange={(e) => setUserPhone(e.target.value)}
                   />
                 </Form.Group>
+                Ao deixar o campo vazio,o valor não sera editado*
               </Col>
             </Row>
             <div className="float-right"></div>

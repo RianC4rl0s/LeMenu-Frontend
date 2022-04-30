@@ -1,4 +1,4 @@
-import { Button, OverlayTrigger, Stack, Table, Tooltip } from "react-bootstrap";
+import { Breadcrumb, Button, Form, OverlayTrigger, Stack, Table, Tooltip } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import EditTables from "../../components/modal/ModalTables/EditTable";
 import NewTable from "../../components/modal/ModalTables/NewTable";
@@ -8,6 +8,7 @@ import TopBar from "../../components/TopBar";
 import * as Styled from "./styles";
 import api from "../../services/api"
 import { useEffect, useState } from "react";
+import { LinkContainer } from "react-router-bootstrap";
 export default function Tables() {
   const [tableList, setTableList] = useState([]);
 
@@ -21,15 +22,30 @@ export default function Tables() {
 
   }, [])
 
+  const [search, setSearch] = useState("");
   return (
     <>
       <div style={{ flex: 1, display: "flex" }}>
         <SideBar />
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", margin: "20px" }}>
           <TopBar />
           <Styled.Container>
+            <Breadcrumb>
+              <LinkContainer to="/">
+                <Breadcrumb.Item >Inicio</Breadcrumb.Item>
+              </LinkContainer>
+              <LinkContainer to="/adm/mesas">
+                <Breadcrumb.Item active>
+                  Mesas
+                </Breadcrumb.Item>
+              </LinkContainer>
+            </Breadcrumb>
             <Styled.BorderContainer>
               <Styled.TitleContainer>
+                <Form.Group className="mb-3" controlId="formName">
+                  <Form.Label>Buscar</Form.Label>
+                  <Form.Control onChange={(e) => setSearch(e.target.value)} placeholder="" />
+                </Form.Group>
                 <p>Mesas</p>
                 <NewTable tableDataState={setTableList} />
               </Styled.TitleContainer>
@@ -46,7 +62,7 @@ export default function Tables() {
                 </thead>
                 <tbody>
                   {
-                    tableList.map(item => (
+                    tableList.filter(tables => tables.code.includes(search)).map(item => (
                       <tr key={item.id}>
                         <td>{item.code}</td>
                         <td>

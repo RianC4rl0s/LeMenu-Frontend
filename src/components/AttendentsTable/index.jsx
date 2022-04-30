@@ -4,7 +4,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import NewAttendant from "../modal/Attendants/NewAttendant";
 import api from "../../services/api";
-import { Pagination, Stack, Table } from "react-bootstrap";
+import { Form, Pagination, Stack, Table } from "react-bootstrap";
 
 // import EditProduct from "../modal/products/EditProduct";
 import * as Styled from "./styles";
@@ -33,10 +33,15 @@ const DataTable = () => {
         console.error("ops! ocorreu um erro" + err);
       });
   }, []);
+  const [search, setSearch] = useState("");
   return (
     <>
       <Styled.TitleContainer>
-        <Styled.Input placeholder="Buscar"></Styled.Input>
+        {/* <Styled.Input placeholder="Buscar"></Styled.Input> */}
+        <Form.Group className="mb-3" controlId="formName">
+          <Form.Label>Buscar</Form.Label>
+          <Form.Control onChange={(e) => setSearch(e.target.value)} placeholder="" />
+        </Form.Group>
         <h3>Atendentes</h3>
         <NewAttendant attendantDataState={setAttendantsList} />
       </Styled.TitleContainer>
@@ -52,7 +57,7 @@ const DataTable = () => {
           </tr>
         </thead>
         <tbody>
-          {attendantsList.map((item) => (
+          {attendantsList.filter(attendants => attendants.name.includes(search)).map((item) => (
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.name}</td>
@@ -62,6 +67,7 @@ const DataTable = () => {
                 <Stack direction="horizontal" gap={1}>
                   <EditAttendent
                     attendantEdit={item.id}
+                    attendant={item}
                     attendantDataState={setAttendantsList}
                   />
                   <AttendentDetail attendantDetails={item} />
@@ -76,7 +82,7 @@ const DataTable = () => {
         </tbody>
       </Table>
       {/* <EditProduct /> */}
-      <Pagination>{items}</Pagination>
+      {/* <Pagination>{items}</Pagination> */}
     </>
   );
 };
