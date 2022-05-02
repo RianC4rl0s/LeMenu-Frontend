@@ -108,7 +108,7 @@ const DataTable = () => {
           </tr>
         </thead>
         <tbody>
-          {productList.filter(products => products.name.includes(search)).map((item) => (
+          {productList.filter(products => products?.name?.includes(search)).map((item) => (
             <tr key={item.id}>
               <td>
 

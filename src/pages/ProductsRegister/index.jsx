@@ -20,12 +20,17 @@ const ProductRegister = (props) => {
             setPreview(undefined)
             return
         }
+        if (selectedFile == null) {
+            setPreview(undefined)
+            return
+        } else {
 
-        const objectUrl = URL.createObjectURL(selectedFile)
-        setPreview(objectUrl)
+            const objectUrl = URL.createObjectURL(selectedFile)
+            setPreview(objectUrl)
 
-        // free memory when ever this component is unmounted
-        return () => URL.revokeObjectURL(objectUrl)
+            // free memory when ever this component is unmounted
+            return () => URL.revokeObjectURL(objectUrl)
+        }
     }, [selectedFile])
     const onSelectFile = e => {
         if (!e.target.files || e.target.files.length === 0) {
@@ -76,30 +81,33 @@ const ProductRegister = (props) => {
     //     };
     //   };
     async function newProduct() {
-        await api
-            .post("/product/new", {
-                image: imgString,
-                name: name,
-                description: description,
-                price: price,
-                sale: promotion,
-                isOnMenu: false,
+        if (imgString !== "" || name !== "" || description !== "" || price !== "" || promotion !== "" || false !== null) {
 
-            })
-            .then((response) => { } /*console.log(response.data)*/)
-            .catch((err) => {
-                console.error("ops! ocorreu um erro" + err);
-            });
+            await api
+                .post("/product/new", {
+                    image: imgString,
+                    name: name,
+                    description: description,
+                    price: price,
+                    sale: promotion,
+                    isOnMenu: false,
+
+                })
+                .then((response) => { } /*console.log(response.data)*/)
+                .catch((err) => {
+                    console.error("ops! ocorreu um erro" + err);
+                });
 
 
-        setShow(false)
-        api
-            .get("/product/search/all")
-            .then((response) => props.productsState(response.data))
-            .catch((err) => {
-                console.error("ops! ocorreu um erro" + err);
-            });
-
+            setShow(false)
+            api
+                .get("/product/search/all")
+                .then((response) => props.productsState(response.data))
+                .catch((err) => {
+                    console.error("ops! ocorreu um erro" + err);
+                });
+            setSelectedFile(undefined)
+        }
 
     }
     return (
