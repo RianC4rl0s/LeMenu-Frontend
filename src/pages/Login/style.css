@@ -1,0 +1,24 @@
+.my-bar {
+    margin: 0;
+    position: absolute;
+    /* top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
+}
+.center {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.my-card{
+    padding: 15px 10px 15px 10px;
+    height: 100vh;
+    /* height: 700px; */
+    width: 550px;
+    box-shadow: 1px 1px 4px rgb(92, 92, 92);
+    background-color: rgb(246, 246, 246);
+}

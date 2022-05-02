@@ -18,7 +18,7 @@ export function SideBar() {
       <Styled.SideBar>
         <Styled.ContentTop>
           <div style={{ margin: "5px 0px 2px 6px" }}>
-            <Link to="/">
+            <Link to="/adm">
               <img src={logo} alt="logo" />
             </Link>
           </div>

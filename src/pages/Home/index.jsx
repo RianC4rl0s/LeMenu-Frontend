@@ -17,8 +17,8 @@ const home = () => {
               textShadow: "3px 3px 5px #626262",
               backgroundImage: `URL(${banner}`,
               backgroundPosition: "center",
-              height: "40%",
               backgroundSize: "cover",
+              height: "40%",
               boxShadow: "4px 4px 10px #2e2e2ed8"
             }}
           >

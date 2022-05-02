@@ -20,11 +20,6 @@ const rootElement = document.getElementById("root");
 //   </StrictMode>
 // );
 render(
-  // <BrowserRouter>
-  //   <Routes>
-  //     <Route path="/" element={<App />} />
-  //   </ Routes>
-  // </BrowserRouter>
   <>
     <GlobalStyle />
     <RoutesSwitch></RoutesSwitch>

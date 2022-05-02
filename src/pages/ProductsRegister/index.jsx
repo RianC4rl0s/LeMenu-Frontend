@@ -81,7 +81,8 @@ const ProductRegister = (props) => {
     //     };
     //   };
     async function newProduct() {
-        if (imgString !== "" || name !== "" || description !== "" || price !== "" || promotion !== "" || false !== null) {
+        if (imgString !== "" || name !== "" || description !== "" || price !== "" || promotion !== "" || false !== null
+            || imgString !== null || name !== null || description !== null || price !== null || promotion !== null) {
 
             await api
                 .post("/product/new", {

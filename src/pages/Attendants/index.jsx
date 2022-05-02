@@ -16,7 +16,7 @@ const attendants = () => {
                     <Styled.Container>
 
                         <Breadcrumb>
-                            <LinkContainer to="/">
+                            <LinkContainer to="/adm">
                                 <Breadcrumb.Item >Inicio</Breadcrumb.Item>
                             </LinkContainer>
                             <LinkContainer to="/adm/atendentes">
