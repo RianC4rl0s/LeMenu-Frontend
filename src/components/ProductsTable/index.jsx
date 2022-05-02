@@ -17,12 +17,11 @@ import EditProduct from "../modal/products/EditProduct";
 // import EditProduct from "../modal/products/EditProduct";
 import * as Styled from "./styles";
 
-import api from "../../services/api"
+import api from "../../services/api";
 import { FaTrashAlt } from "react-icons/fa";
 import ProductsRegister from "../../pages/ProductsRegister";
 
-
-import { base64ToBlob } from "../../utils/bloob"
+import { base64ToBlob } from "../../utils/bloob";
 let active = 2;
 let items = [];
 for (let number = 1; number <= 5; number++) {
@@ -35,7 +34,8 @@ for (let number = 1; number <= 5; number++) {
 
 const DataTable = () => {
   // eslint-disable-next-line no-unused-vars
-  const [productList, setProductList] = useState([/*
+  const [productList, setProductList] = useState([
+    /*
     {
       id: 1,
       piture: "../../../src/assets/berry.jpg",
@@ -64,7 +64,8 @@ const DataTable = () => {
       description: "teste3",
       price: "teste4",
     },
-  */]);
+  */
+  ]);
 
   useEffect(() => {
     api
@@ -73,16 +74,13 @@ const DataTable = () => {
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
       });
-
-
-
-  }, [])
+  }, []);
   const toBlob = (img) => {
     const blob = base64ToBlob({ base64: img, type: "image" });
     const url = URL.createObjectURL(blob);
     // console.log(url);
     return url;
-  }
+  };
   const [search, setSearch] = useState("");
   return (
     <>
@@ -90,7 +88,10 @@ const DataTable = () => {
         {/* <Styled.Input placeholder="Buscar" onC ></Styled.Input> */}
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Buscar</Form.Label>
-          <Form.Control onChange={(e) => setSearch(e.target.value)} placeholder="" />
+          <Form.Control
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder=""
+          />
         </Form.Group>
         <h3>Produtos</h3>
         <ProductsRegister productsState={setProductList} />
@@ -140,21 +141,22 @@ const DataTable = () => {
                           console.error("ops! ocorreu um erro" + err);
                         });
 
-                      api
-                        .get("/product/search/all")
-                        .then((response) => setProductList(response.data))
-                        .catch((err) => {
-                          console.error("ops! ocorreu um erro" + err);
-                        });
-                    }}>
-                      {/* Editar */}
-                      <FaTrashAlt />
-                    </Button>
-                  </OverlayTrigger>
-                </Stack>
-              </td>
-            </tr>
-          ))}
+                          api
+                            .get("/product/search/all")
+                            .then((response) => setProductList(response.data))
+                            .catch((err) => {
+                              console.error("ops! ocorreu um erro" + err);
+                            });
+                        }}
+                      >
+                        {/* Editar */}
+                        <FaTrashAlt />
+                      </Button>
+                    </OverlayTrigger>
+                  </Stack>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </Table>
       {/* <EditProduct /> */}

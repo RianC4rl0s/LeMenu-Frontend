@@ -1,6 +1,6 @@
 // import { LinkContainer } from "react-router-bootstrap";
 import * as Styled from "./styles";
-import "./style.css"
+import "./style.css";
 import logo from "../../assets/logo.svg";
 // import ingredients from "../../assets/ingredients.svg";
 // import table from "../../assets/table.svg";
@@ -8,17 +8,17 @@ import logo from "../../assets/logo.svg";
 // import user from "../../assets/user.svg";
 import hamburger from "../../assets/hamburgerSvg.svg";
 import { /*Button,*/ OverlayTrigger, Stack, Tooltip } from "react-bootstrap";
-import { FaAppleAlt, FaUserAlt, FaUtensils, FaCube } from 'react-icons/fa'
+import { FaAppleAlt, FaUtensils, FaCube } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-export function SideBar() {
+export function SideBarAttendant() {
   return (
     <>
       <div style={{ width: "60px", height: "100vh" }}></div>
       <Styled.SideBar>
         <Styled.ContentTop>
           <div style={{ margin: "5px 0px 2px 6px" }}>
-            <Link to="/adm">
+            <Link to="/atendente">
               <img src={logo} alt="logo" />
             </Link>
           </div>
@@ -26,13 +26,8 @@ export function SideBar() {
           <div style={{ marginTop: "7px" }}>
             <Stack>
               <OverlayTrigger
-
                 placement="right"
-                overlay={
-                  <Tooltip>
-                    Produtos
-                  </Tooltip>
-                }
+                overlay={<Tooltip>Produtos</Tooltip>}
               >
                 {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
                 {/* <LinkContainer > */}
@@ -42,7 +37,7 @@ export function SideBar() {
                   </Button>
                   
                 </LinkContainer> */}
-                <Link to="/adm/produtos">
+                <Link to="/clerk/produtos">
                   <button className="sideBarBtn">
                     <FaAppleAlt></FaAppleAlt>
                   </button>
@@ -50,13 +45,8 @@ export function SideBar() {
               </OverlayTrigger>
 
               <OverlayTrigger
-
                 placement="right"
-                overlay={
-                  <Tooltip>
-                    Cardápio
-                  </Tooltip>
-                }
+                overlay={<Tooltip>Cardápio</Tooltip>}
               >
                 {/* 
               <LinkContainer to="/adm/cardapio">
@@ -64,7 +54,7 @@ export function SideBar() {
                   <FaUtensils></FaUtensils>
                 </Button>
               </LinkContainer> */}
-                <Link to="/adm/cardapio">
+                <Link to="/clerk/cardapio">
                   <button className="sideBarBtn">
                     <FaUtensils></FaUtensils>
                   </button>
@@ -72,52 +62,24 @@ export function SideBar() {
               </OverlayTrigger>
 
               <OverlayTrigger
-
                 placement="right"
-                overlay={
-                  <Tooltip>
-                    Mesas
-                  </Tooltip>
-                }
+                overlay={<Tooltip>Mesas</Tooltip>}
               >
                 {/* <LinkContainer to="/adm/mesas">
                 <Button variant="outline-primary">
                 <FaCube></FaCube>
                 </Button>
               </LinkContainer> */}
-                <Link to="/adm/mesas">
+                <Link to="/clerk/mesas">
                   <button className="sideBarBtn">
                     <FaCube></FaCube>
-                  </button>
-                </Link>
-              </OverlayTrigger>
-
-              <OverlayTrigger
-
-                placement="right"
-                overlay={
-                  <Tooltip>
-                    Usuários
-                  </Tooltip>
-                }
-              >
-                {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
-                {/* <Styled.Options src={ingredients} alt="ingredients" /> */}
-                {/* <LinkContainer to="/adm/atendentes">
-               
-                <Button variant="outline-primary">
-                  <FaUserAlt />
-                  </Button>
-              </LinkContainer> */}
-                <Link to="/adm/atendentes">
-                  <button className="sideBarBtn">
-                    <FaUserAlt />
                   </button>
                 </Link>
               </OverlayTrigger>
             </Stack>
           </div>
         </Styled.ContentTop>
+
         <Link to="/">
 
           <Styled.ContentBottom>
@@ -126,6 +88,5 @@ export function SideBar() {
         </Link>
       </Styled.SideBar>
     </>
-
   );
 }

@@ -16,7 +16,7 @@ const Product = () => {
           <Styled.Container>
             {/* <Path></Path> */}
             <Breadcrumb>
-              <LinkContainer to="/">
+              <LinkContainer to="/adm">
                 <Breadcrumb.Item >Inicio</Breadcrumb.Item>
               </LinkContainer>
               <LinkContainer to="/adm/produtos">
