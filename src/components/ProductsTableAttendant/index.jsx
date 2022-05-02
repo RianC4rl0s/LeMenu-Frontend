@@ -3,23 +3,23 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import {
-  Button,
+  // Button,
   Form,
-  OverlayTrigger,
+  // OverlayTrigger,
   Pagination,
   Stack,
   Table,
-  Tooltip,
+  // Tooltip,
 } from "react-bootstrap";
 // import { LinkContainer } from "react-router-bootstrap";
-import EditProduct from "../modal/products/EditProduct";
+// import EditProduct from "../modal/products/EditProduct";
 // import ProductDetails from "../modal/products/ProductDetails";
 // import EditProduct from "../modal/products/EditProduct";
 import * as Styled from "./styles";
 
 import api from "../../services/api";
-import { FaTrashAlt } from "react-icons/fa";
-import ProductsRegister from "../../pages/ProductsRegister";
+// import { FaTrashAlt } from "react-icons/fa";
+// import ProductsRegister from "../../pages/ProductsRegister";
 
 import { base64ToBlob } from "../../utils/bloob";
 let active = 2;

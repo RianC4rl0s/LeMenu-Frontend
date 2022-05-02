@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import {
-  Button,
+  // Button,
   Card,
   Col,
   Figure,
@@ -12,8 +12,8 @@ import {
   Row,
   Stack,
 } from "react-bootstrap";
-import { FaPlus } from "react-icons/fa";
-import { FaMinus } from "react-icons/fa";
+// import { FaPlus } from "react-icons/fa";
+// import { FaMinus } from "react-icons/fa";
 
 import { base64ToBlob } from "../../../utils/bloob";
 import api from "../../../services/api";

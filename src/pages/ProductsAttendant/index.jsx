@@ -3,7 +3,7 @@ import { SideBarAttendant } from "../../components/SideBarAttendant";
 import TopBar from "../../components/TopBar";
 import * as Styled from "./styles";
 import ProductsTableAttendant from "../../components/ProductsTableAttendant";
-import Path from "../../components/Path/Path";
+// import Path from "../../components/Path/Path";
 import { Breadcrumb } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 const ProductAttendant = () => {

@@ -1,6 +1,6 @@
 import React from "react";
-import { LinkContainer } from "react-router-bootstrap";
-import * as Styled from './Style'
+// import { LinkContainer } from "react-router-bootstrap";
+// import * as Styled from './Style'
 
 const Path = () => {
     return (

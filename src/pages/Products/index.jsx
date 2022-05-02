@@ -3,7 +3,7 @@ import { SideBar } from "../../components/SideBar";
 import TopBar from "../../components/TopBar";
 import * as Styled from "./styles";
 import ProductsTable from "../../components/ProductsTable";
-import Path from "../../components/Path/Path";
+// import Path from "../../components/Path/Path";
 import { Breadcrumb } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 const Product = () => {
