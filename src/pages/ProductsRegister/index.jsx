@@ -129,6 +129,7 @@ const ProductRegister = (props) => {
                                         {/* <Form.Label></Form.Label> */}
                                         <Form.Control accept="image/png, image/gif, image/jpeg" type="file" /*acc*/ onChange={onSelectFile} />
                                     </Form.Group>
+                                    Por questões de desempenho e estar em um servidor remoto, evite imagens grandes
                                 </Col>
                                 <Col>
 
