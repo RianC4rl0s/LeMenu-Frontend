@@ -80,7 +80,8 @@ const ProductRegister = (props) => {
     //       }
     //     };
     //   };
-    async function newProduct() {
+    async function newProduct(e) {
+        e.preventDefault()
         if (imgString !== "" || name !== "" || description !== "" || price !== "" || promotion !== "" || false !== null
             || imgString !== null || name !== null || description !== null || price !== null || promotion !== null) {
 
