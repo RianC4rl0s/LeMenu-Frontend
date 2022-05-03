@@ -80,8 +80,12 @@ const ProductRegister = (props) => {
     //       }
     //     };
     //   };
-    async function newProduct(e) {
+    function handlesubmit(e){
         e.preventDefault()
+        newProduct();
+    }
+    async function newProduct() {
+        // e.preventDefault()
         if (imgString !== "" || name !== "" || description !== "" || price !== "" || promotion !== "" || false !== null
             || imgString !== null || name !== null || description !== null || price !== null || promotion !== null) {
 
@@ -101,7 +105,6 @@ const ProductRegister = (props) => {
                 });
 
 
-            setShow(false)
             api
                 .get("/product/search/all")
                 .then((response) => props.productsState(response.data))
@@ -109,7 +112,9 @@ const ProductRegister = (props) => {
                     console.error("ops! ocorreu um erro" + err);
                 });
             setSelectedFile(undefined)
+            setShow(false)
         }
+
 
     }
     return (
@@ -153,6 +158,7 @@ const ProductRegister = (props) => {
                                         <Form.Label>Preço</Form.Label>
                                         <Form.Control placeholder=""
                                             type="number" min={0}
+                                            step=".01"
                                             onChange={(e) => setPrice(e.target.value)}
                                             required
                                         />
@@ -161,6 +167,7 @@ const ProductRegister = (props) => {
                                     <Form.Group className="mb-3" controlId="formGridAddress2">
                                         <Form.Label>Promoção</Form.Label>
                                         <Form.Control placeholder=""
+                                            step=".01"
                                             onChange={(e) => setPromotion(e.target.value)}
                                             type="number" min={0}
                                             required
@@ -169,8 +176,8 @@ const ProductRegister = (props) => {
                                 </Col>
                             </Row>
                             <div className="float-right">
-                                <Styled.ButtonGreen className="pull-right" type="sub" onClick={() => newProduct()} >Salvar</Styled.ButtonGreen>
-                                <Styled.ButtonRed className="pull-right" type="sub">Cancelar</Styled.ButtonRed>
+                                <Styled.ButtonGreen className="pull-right" type="submit" onClick={ handlesubmit} >Salvar</Styled.ButtonGreen>
+                                <Styled.ButtonRed className="pull-right" >Cancelar</Styled.ButtonRed>
 
                             </div>
                         </Form>
