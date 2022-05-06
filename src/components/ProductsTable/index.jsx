@@ -109,37 +109,44 @@ const DataTable = () => {
           </tr>
         </thead>
         <tbody>
-          {productList.filter(products => products?.name?.includes(search)).map((item) => (
-            <tr key={item.id}>
-              <td>
-
-                <img src={toBlob(item.image)} height="50px" alt="Foto" />
-              </td>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-              <td>{item.description}</td>
-              <td>{item.price}</td>
-              <td>
-                <Stack direction="horizontal" gap={1}>
-                  <EditProduct />
-                  {/* <ProductDetails/> */}
-                  <OverlayTrigger
-                    placement="bottom"
-                    overlay={
-                      <Tooltip id={`tooltip-detalhes`}>
-                        <strong>Remover</strong>.
-                      </Tooltip>
-                    }
-                  >
-                    <Button variant="danger" onClick={async () => {
-                      await api
-                        .delete(`/product/delete/${item.id}`)
-                        .then((response) => {
-                          console.log(response.data);
-                        })
-                        .catch((err) => {
-                          console.error("ops! ocorreu um erro" + err);
-                        });
+          {productList
+            .filter((products) => products?.name?.includes(search))
+            .map((item) => (
+              <tr key={item.id}>
+                <td>
+                  <img src={toBlob(item.image)} height="50px" alt="Foto" />
+                </td>
+                <td>{item.id}</td>
+                <td>{item.name}</td>
+                <td>{item.description}</td>
+                <td>{item.price}</td>
+                <td>
+                  <Stack direction="horizontal" gap={1}>
+                    <EditProduct
+                      productEdit={item.id}
+                      product={item}
+                      productDataState={setProductList}
+                    />
+                    {/* <ProductDetails/> */}
+                    <OverlayTrigger
+                      placement="bottom"
+                      overlay={
+                        <Tooltip id={`tooltip-detalhes`}>
+                          <strong>Remover</strong>.
+                        </Tooltip>
+                      }
+                    >
+                      <Button
+                        variant="danger"
+                        onClick={async () => {
+                          await api
+                            .delete(`/product/delete/${item.id}`)
+                            .then((response) => {
+                              console.log(response.data);
+                            })
+                            .catch((err) => {
+                              console.error("ops! ocorreu um erro" + err);
+                            });
 
                           api
                             .get("/product/search/all")

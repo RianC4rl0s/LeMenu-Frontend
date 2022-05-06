@@ -9,13 +9,41 @@ import {
 } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import * as Styled from "./styles";
+import api from "../../../services/api";
 
 import { FaPen } from "react-icons/fa";
-const EditProduct = () => {
+const EditProduct = (props) => {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [produtctName, setProductName] = useState(props.product.name);
+  const [productPrice, setproductPrice] = useState(props.product.login);
+  const [productSale, setproductSale] = useState(props.product.sale);
+  const [productDescription, setproductDescription] = useState(
+    props.product.description
+  );
+
+  async function edit(id) {
+    return api
+      .put(`product/update/${id}`, {
+        name: produtctName,
+        price: productPrice,
+        sale: productSale,
+        description: productDescription,
+      })
+      .then(loadProduct)
+      .catch((err) => {
+        console.error("ops! ocorreu um erro para criar" + err);
+      });
+  }
+
+  function loadProduct() {
+    api
+      .get("/product/search/all")
+      .then((response) => props.productDataState(response.data))
+      .catch((err) => {
+        console.error("ops! ocorreu um erro para listar" + err);
+      });
+  }
 
   const [selectedFile, setSelectedFile] = useState();
   // eslint-disable-next-line no-unused-vars
@@ -54,14 +82,14 @@ const EditProduct = () => {
           </Tooltip>
         }
       >
-        <Button variant="warning" onClick={handleShow}>
+        <Button variant="warning" onClick={() => setShow(true)}>
           {/* Editar */}
           <FaPen />
         </Button>
       </OverlayTrigger>
 
-      <Modal show={show} onHide={handleClose} size="lg">
-        <Modal.Header closeButton>
+      <Modal show={show} size="lg">
+        <Modal.Header closeButton onClick={() => setShow(false)}>
           <Modal.Title>Editar Produto</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -81,25 +109,38 @@ const EditProduct = () => {
               <Col>
                 <Form.Group className="mb-3" controlId="formName">
                   <Form.Label>Nome</Form.Label>
-                  <Form.Control placeholder="" />
+                  <Form.Control
+                    placeholder={props.product.name}
+                    onChange={(e) => setProductName(e.target.value)}
+                  />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formDescription">
                   <Form.Label>Descrição</Form.Label>
-                  <Form.Control placeholder="" />
+                  <Form.Control
+                    placeholder={props.product.description}
+                    onChange={(e) => setproductDescription(e.target.value)}
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPrice">
                   <Form.Label>Preço</Form.Label>
-                  <Form.Control placeholder=""
-                    type="number" min={0}
-                    required />
+                  <Form.Control
+                    placeholder={props.product.price}
+                    type="number"
+                    min={0}
+                    required
+                    onChange={(e) => setproductPrice(e.target.value)}
+                  />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formGridAddress2">
                   <Form.Label>Promoção</Form.Label>
-                  <Form.Control placeholder=""
-                    type="number" min={0}
+                  <Form.Control
+                    placeholder={props.product.sale}
+                    type="number"
+                    min={0}
                     required
+                    onChange={(e) => setproductSale(e.target.value)}
                   />
                 </Form.Group>
               </Col>
@@ -111,14 +152,19 @@ const EditProduct = () => {
           <Styled.ButtonGreen
             className="pull-right"
             type="sub"
-            onClick={handleClose}
+            onClick={() => {
+              edit(props.productEdit);
+              setShow(false);
+            }}
           >
             Salvar
           </Styled.ButtonGreen>
           <Styled.ButtonRed
             className="pull-right"
             type="sub"
-            onClick={handleClose}
+            onClick={() => {
+              setShow(false);
+            }}
           >
             Cancelar
           </Styled.ButtonRed>
