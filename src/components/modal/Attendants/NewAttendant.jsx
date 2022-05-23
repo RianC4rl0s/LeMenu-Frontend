@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Col, Form, Modal, Row, Button } from "react-bootstrap";
+import { cpfMask } from "../../../utils/masks/cpf.js";
+import { phoneMask } from "../../../utils/masks/phone.js";
 
 import api from "../../../services/api";
 export default function NewAttendant(props) {
@@ -18,6 +20,15 @@ export default function NewAttendant(props) {
       .catch((err) => {
         console.error("ops! ocorreu um erro para listar" + err);
       });
+  }
+
+  function close() {
+    setShow(false);
+    setUserName("");
+    setUserLogin("");
+    setUserPassword("");
+    setUserCpf("");
+    setUserPhone("");
   }
 
   async function add() {
@@ -41,7 +52,7 @@ export default function NewAttendant(props) {
         Novo
       </Button>
 
-      <Modal show={show} onHide={() => setShow(false)} size="lg">
+      <Modal show={show} onHide={() => close()} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Novo Atendente</Modal.Title>
         </Modal.Header>
@@ -71,17 +82,19 @@ export default function NewAttendant(props) {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formCode">
-                  <Form.Label>Cpf</Form.Label>
+                  <Form.Label>CPF</Form.Label>
                   <Form.Control
                     placeholder=""
-                    onChange={(e) => setUserCpf(e.target.value)}
+                    onChange={(e) => setUserCpf(cpfMask(e.target.value))}
+                    value={userCpf}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formCode">
                   <Form.Label>Telefone</Form.Label>
                   <Form.Control
                     placeholder=""
-                    onChange={(e) => setUserPhone(e.target.value)}
+                    onChange={(e) => setUserPhone(phoneMask(e.target.value))}
+                    value={userPhone}
                   />
                 </Form.Group>
               </Col>
@@ -99,7 +112,7 @@ export default function NewAttendant(props) {
           >
             Adicionar
           </Button>
-          <Button variant="danger" onClick={() => setShow(false)}>
+          <Button variant="danger" onClick={() => close()}>
             Cancelar
           </Button>
         </Modal.Footer>

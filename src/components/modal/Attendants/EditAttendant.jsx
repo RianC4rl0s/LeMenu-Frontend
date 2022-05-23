@@ -7,9 +7,11 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import * as Styled from "./styles";
 import api from "../../../services/api";
+import { cpfMask } from "../../../utils/masks/cpf.js";
+import { phoneMask } from "../../../utils/masks/phone.js";
 
 import { FaPen } from "react-icons/fa";
 // import attendants from "../../../pages/Attendants";
@@ -37,6 +39,15 @@ const EditAttendant = (props) => {
       });
   }
 
+  function close() {
+    setShow(false);
+    setUserName("");
+    setUserLogin("");
+    setUserPassword("");
+    setUserCpf("");
+    setUserPhone("");
+  }
+
   function loadAttendant() {
     api
       .get("/clerk/search/all")
@@ -61,7 +72,7 @@ const EditAttendant = (props) => {
       </OverlayTrigger>
 
       <Modal show={show} size="lg">
-        <Modal.Header closeButton onClick={() => setShow(false)}>
+        <Modal.Header closeButton onClick={() => close()}>
           <Modal.Title>Editar Atendente</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -86,7 +97,6 @@ const EditAttendant = (props) => {
                   <Form.Label>Senha</Form.Label>
                   <Form.Control
                     placeholder={props.attendant.password}
-                    
                     onChange={(e) => setUserPassword(e.target.value)}
                   />
                 </Form.Group>
@@ -94,14 +104,16 @@ const EditAttendant = (props) => {
                   <Form.Label>Cpf</Form.Label>
                   <Form.Control
                     placeholder={props.attendant.cpf}
-                    onChange={(e) => setUserCpf(e.target.value)}
+                    onChange={(e) => setUserCpf(cpfMask(e.target.value))}
+                    value={userCpf}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formTelefone">
                   <Form.Label>Telefone</Form.Label>
                   <Form.Control
                     placeholder={props.attendant.phone}
-                    onChange={(e) => setUserPhone(e.target.value)}
+                    onChange={(e) => setUserPhone(phoneMask(e.target.value))}
+                    value={userPhone}
                   />
                 </Form.Group>
                 Ao deixar o campo vazio,o valor não sera editado*
@@ -125,7 +137,7 @@ const EditAttendant = (props) => {
             className="pull-right"
             type="sub"
             onClick={() => {
-              setShow(false);
+              close();
             }}
           >
             Cancelar
