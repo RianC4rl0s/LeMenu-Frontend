@@ -6,9 +6,9 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-  // const { 'lemenu.token': token } = parseCookies();
-  const { 'lemenu_token': token } = localStorage.getItem("lemenu_token");;
-
+  
+  const  token  = localStorage.getItem("lemenu_token");;
+  console.log("teste api" + token)
   if(token && config) {
     Object.assign(config.headers, {'Authorization': `Bearer ${token}`});
   }

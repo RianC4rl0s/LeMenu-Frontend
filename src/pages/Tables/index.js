@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 export default function Tables() {
   const [tableList, setTableList] = useState([]);
-
+  
   useEffect(() => {
     api
       .get("/table/search/all")
@@ -27,6 +27,7 @@ export default function Tables() {
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [search, setSearch] = useState("");
