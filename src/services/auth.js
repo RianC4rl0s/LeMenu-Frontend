@@ -4,13 +4,14 @@ import api from './api';
 
 export async function signInRequest({ login, password }) {
   const response = await api.post('/login', {
-    login,
-    password
+    "login": login,
+    "password":password
   });
 
   const { accessToken: token } = response.data;
+  console.log(token)
 
-  return { token };
+   return { token };
 }
 
 export async function recoverUserInformation() {

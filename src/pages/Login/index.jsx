@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css"
 import banner from "../../assets/banner.svg";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-const login = () => {
+import { useAuthContext } from "../../context/AuthContext";
+// import { signInRequest } from "../../services/auth";
+const Login = () => {
+
+  const { signIn } = useAuthContext();
+
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState('');
+
+  const [canLogin, setCanLogin] = useState(true);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // await signInRequest({login,password})
+    await signIn({
+      "login": login,
+      "password": password
+    }).catch(error => {
+      setCanLogin(false);
+      console.log(error)
+    });
+  };
   return (
     <div style={{
       display: "block",
@@ -17,36 +38,45 @@ const login = () => {
 
       >
         <div className="my-card">
-          <Form className="center">
+          <Form onSubmit={handleSubmit} className="center">
             <Row className="align-middle">
               <Col>
 
                 <Form.Group className="mb-3" controlId="formName">
                   <Form.Label>Login</Form.Label>
                   <Form.Control placeholder=""
-
+                    onChange={e => setLogin(e.target.value)}
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formDescription">
                   <Form.Label>Senha</Form.Label>
                   <Form.Control placeholder=""
-                   type="password"
+                    type="password"
+                    onChange={e => setPassword(e.target.value)}
                   />
+
                 </Form.Group>
 
               </Col>
             </Row>
             <div className="float-right">
-              <Link to="/adm">
-              <Button style={{margin:"20px"}} variant="primary">Logar como adm</Button>
-              </Link>
+              <Button onClick={handleSubmit} style={{ margin: "20px" }} variant="primary">Logar como adm</Button>
+              {/* <Link to="/adm">
+              </Link> */}
               <Link to="/atendente">
-              <Button style={{margin:"20px"}} variant="success">Logar como atendente</Button>
+                <Button style={{ margin: "20px" }} variant="success">Logar como atendente</Button>
               </Link>
 
             </div>
-            Esta tela de login é apenas para selecionar qual view será utilizada*
+            {
+              !canLogin &&
+              <>
+                Não foi possível realizar o login.
+                Login e/ou senha inválidos!
+              </>
+
+            }
           </Form>
         </div>
       </div>
@@ -54,4 +84,4 @@ const login = () => {
     </div>
   );
 }
-export default login;
+export default Login;
