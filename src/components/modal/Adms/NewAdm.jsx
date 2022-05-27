@@ -4,7 +4,7 @@ import { cpfMask } from "../../../utils/masks/cpf.js";
 import { phoneMask } from "../../../utils/masks/phone.js";
 
 import api from "../../../services/api";
-export default function NewAttendant(props) {
+export default function NewAdm(props) {
   const [show, setShow] = useState(false);
 
   const [userName, setUserName] = useState("");
@@ -13,14 +13,14 @@ export default function NewAttendant(props) {
   const [userCpf, setUserCpf] = useState("");
   const [userPhone, setUserPhone] = useState("");
 
-  function loadAttendant() {
-    api
+  function loadAdm() {}
+  /*api
       .get("/clerk/search/all")
-      .then((response) => props.attendantDataState(response.data))
+      .then((response) => props.admDataState(response.data))
       .catch((err) => {
         console.error("ops! ocorreu um erro para listar" + err);
       });
-  }
+  }*/
 
   function close() {
     setShow(false);
@@ -31,8 +31,8 @@ export default function NewAttendant(props) {
     setUserPhone("");
   }
 
-  async function add() {
-    return api
+  async function add() {}
+  /*return api
       .post("/clerk/new", {
         name: userName,
         cpf: userCpf,
@@ -40,11 +40,11 @@ export default function NewAttendant(props) {
         password: userPassword,
         phone: userPhone,
       })
-      .then(loadAttendant)
+      .then(loadAdm)
       .catch((err) => {
         console.error("ops! ocorreu um erro para criar" + err);
       });
-  }
+  }*/
 
   return (
     <>
