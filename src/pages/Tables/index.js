@@ -98,9 +98,15 @@ export default function Tables() {
                         <td>0,00R$</td>
                         <td>
                           {item.isOpen ? (
-                            <label style={{ color: "green" }}>Aberta</label>
+                           <div style={{ backgroundColor: "#44DD44",textAlign:"center", borderRadius: "5px" }}>
+
+                           <label style={{ color: "white",fontWeight:"800" }}>Mesa Livre</label>
+                         </div>
                           ) : (
-                            <label style={{ color: "red" }}>Fechada</label>
+                            <div style={{ backgroundColor: "#dd4444",textAlign:"center", borderRadius: "5px" }}>
+
+                              <label style={{ color: "white",fontWeight:"800" }}>Mesa Ocupada</label>
+                            </div>
                           )}
                         </td>
                         <td>

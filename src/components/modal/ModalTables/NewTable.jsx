@@ -8,10 +8,11 @@ export default function NewTable(props) {
   const [tableCode, setTableCode] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const handleChange = () => {
     setIsOpen(!isOpen);
-   
+
   };
 
   return (
@@ -27,6 +28,12 @@ export default function NewTable(props) {
           {showAlert && (
             <Alert key={1} variant={"danger"}>
               Preencha os campos
+            </Alert>
+          )}
+           {showError && (
+            <Alert key={1} variant={"danger"}>
+              Não foi possivel realizar o cadastro.
+              Verifique se o codigo da mesa não está repetido.
             </Alert>
           )}
           <Form>
@@ -77,8 +84,12 @@ export default function NewTable(props) {
                     code: tableCode,
                     isOpen: isOpen,
                   })
-                  .then((response) => {} /*console.log(response.data)*/)
+                  .then((response) => {
+
+                    setShow(false);
+                  } /*console.log(response.data)*/)
                   .catch((err) => {
+                    setShowError(true);
                     console.error("ops! ocorreu um erro" + err);
                   });
 
@@ -92,8 +103,8 @@ export default function NewTable(props) {
                     console.error("ops! ocorreu um erro" + err);
                   });
 
-                setShow(false);
-
+                //setShow(false);
+                
                 setShowAlert(false);
               } else {
                 setShowAlert(true);
