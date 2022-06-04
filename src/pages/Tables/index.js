@@ -1,7 +1,9 @@
 import {
   Breadcrumb,
+  Button,
   // Button,
   Form,
+  Modal,
   // OverlayTrigger,
   Stack,
   Table,
@@ -17,9 +19,10 @@ import * as Styled from "./styles";
 import api from "../../services/api";
 import { useEffect, useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
+import QRCode from "react-qr-code";
 export default function Tables() {
   const [tableList, setTableList] = useState([]);
-  
+
   useEffect(() => {
     api
       .get("/table/search/all")
@@ -27,9 +30,12 @@ export default function Tables() {
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [search, setSearch] = useState("");
   return (
     <>
@@ -115,6 +121,28 @@ export default function Tables() {
                                 <FaSearch color="white" />
                               </Button>
                             </OverlayTrigger>*/}
+                            <Button variant="primary" onClick={handleShow}>
+                              QR Code
+                            </Button>
+
+                            <Modal show={show} onHide={handleClose}>
+                              <Modal.Header closeButton>
+                                <Modal.Title>QR Code</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <div style={{ background: 'white', padding: '16px' }}>
+                                  <QRCode value={item.code} />
+                                </div>
+                              </Modal.Body>
+                              <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                  Fechar
+                                </Button>
+                                {/* <Button variant="primary" onClick={handleClose}>
+                                  Save Changes
+                                </Button> */}
+                              </Modal.Footer>
+                            </Modal>
                           </Stack>
                         </td>
                       </tr>
