@@ -20,25 +20,25 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         // const { 'lemenu.token': token } = parseCookies();
-         const token   = localStorage.getItem("lemenu_token");
+        const token = localStorage.getItem("lemenu_token");
 
-         console.log(token)
-        // if (token) {
-        //     recoverUserInformation().then(response => setUser(response.user));
-        // } else {
-        //     navigate('/');
-        // }
+        //console.log(token)
+        if (token) {
+            recoverUserInformation().then(response => setUser(response.user));
+        } else {
+            navigate('/');
+        }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     async function signIn(data) {
-        const  {token}  = await signInRequest(data);
-        console.log("Token" + token)
+        const { token } = await signInRequest(data);
+        //console.log("Token" + token)
         // setCookie(undefined, 'lemenu.token', token, {
         //     maxAge: 60 * 60 * 1 // 1 hour
         // });
-        localStorage.setItem("lemenu_token",token);
+        localStorage.setItem("lemenu_token", token);
         if (token) {
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
@@ -47,10 +47,13 @@ export function AuthProvider({ children }) {
             .then(response => {
                 setUser(response.user);
 
-                if (response.user.roles === 'ROLE_ADMIN' || response.user.roles === 'ROLE_SUPERVISOR')
-                navigate('/adm')
+                if (response.user.roles === 'ROLE_ADMIN' /*|| response.user.roles === 'ROLE_SUPERVISOR'*/)
+                    navigate('/adm')
+                else if (response.user.roles === 'ROLE_ATTENDANT')
+                    navigate('/atendente')
+
                 else
-                navigate('/estabelecimento/home')
+                    navigate('/')
             })
     }
 

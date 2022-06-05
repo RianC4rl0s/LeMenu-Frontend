@@ -9,7 +9,7 @@ export async function signInRequest({ login, password }) {
   });
 
   const { accessToken: token } = response.data;
-  console.log(token)
+  // console.log(token)
 
    return { token };
 }

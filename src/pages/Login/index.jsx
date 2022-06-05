@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./style.css"
 import banner from "../../assets/banner.svg";
-import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Alert, Button, Col, Form, Row } from "react-bootstrap";
+// import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 // import { signInRequest } from "../../services/auth";
 const Login = () => {
@@ -13,17 +13,23 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const [canLogin, setCanLogin] = useState(true);
+
+  const [showAlert, setShowAlert] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (password === "" || login === "") {
+      setShowAlert(true)
+    } else {
 
-    // await signInRequest({login,password})
-    await signIn({
-      "login": login,
-      "password": password
-    }).catch(error => {
-      setCanLogin(false);
-      console.log(error)
-    });
+      // await signInRequest({login,password})
+      await signIn({
+        "login": login,
+        "password": password
+      }).catch(error => {
+        setCanLogin(false);
+        console.log(error)
+      });
+    }
   };
   return (
     <div style={{
@@ -45,6 +51,7 @@ const Login = () => {
                 <Form.Group className="mb-3" controlId="formName">
                   <Form.Label>Login</Form.Label>
                   <Form.Control placeholder=""
+                    required
                     onChange={e => setLogin(e.target.value)}
                   />
                 </Form.Group>
@@ -53,6 +60,7 @@ const Login = () => {
                   <Form.Label>Senha</Form.Label>
                   <Form.Control placeholder=""
                     type="password"
+                    required
                     onChange={e => setPassword(e.target.value)}
                   />
 
@@ -61,12 +69,17 @@ const Login = () => {
               </Col>
             </Row>
             <div className="float-right">
-              <Button onClick={handleSubmit} style={{ margin: "20px" }} variant="primary">Logar como adm</Button>
+              {showAlert && (
+                <Alert key={1} variant={"danger"}>
+                  Preencha os campos
+                </Alert>
+              )}
+              <Button onClick={handleSubmit} style={{ margin: "20px" }} variant="success">Entrar</Button>
               {/* <Link to="/adm">
               </Link> */}
-              <Link to="/atendente">
+              {/* <Link to="/atendente">
                 <Button style={{ margin: "20px" }} variant="success">Logar como atendente</Button>
-              </Link>
+              </Link> */}
 
             </div>
             {
