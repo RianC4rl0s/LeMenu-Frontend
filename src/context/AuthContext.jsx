@@ -1,10 +1,12 @@
+
 import { createContext, useState, useEffect, useContext } from "react";
 // import { setCookie, parseCookies } from 'nookies';
 import { useNavigate } from 'react-router-dom';
 import api from "../services/api"
-
+import { isExpired } from "react-jwt";
 import { signInRequest, recoverUserInformation } from '../services/auth';
 
+const token = localStorage.getItem("lemenu_token");
 
 export const AuthContext = createContext({
     isAuthenticated: false,
@@ -17,15 +19,18 @@ export function AuthProvider({ children }) {
     // const history = useHistory();
     const [user, setUser] = useState(null);
     const isAuthenticated = !!user;
-
+    const isMyTokenExpired = isExpired(token);
     useEffect(() => {
         // const { 'lemenu.token': token } = parseCookies();
-        const token = localStorage.getItem("lemenu_token");
-
+        
+       
+       
         //console.log(token)
-        if (token) {
+        if (token && !isMyTokenExpired) {
             recoverUserInformation().then(response => setUser(response.user));
-        } else {
+        }
+        else {
+            localStorage.removeItem("lemenu_token")
             navigate('/');
         }
 
