@@ -47,9 +47,9 @@ export function AuthProvider({ children }) {
             .then(response => {
                 setUser(response.user);
 
-                if (response.user.roles === 'ROLE_ADMIN' /*|| response.user.roles === 'ROLE_SUPERVISOR'*/)
+                if (response.user.roles === 'ROLE_ADMIN' || response.user.roles === 'ROLE_SUPER_ADMIN')
                     navigate('/adm')
-                else if (response.user.roles === 'ROLE_ATTENDANT')
+                else if (response.user.roles === 'ROLE_ATTENDANT' || response.user.roles === 'ROLE_SUPER_ATTENDANT')
                     navigate('/atendente')
 
                 else

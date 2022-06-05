@@ -32,6 +32,13 @@ export default function NewAttendant(props) {
   }
 
   async function add() {
+    console.log({
+      name: userName,
+      cpf: userCpf,
+      login: userLogin,
+      password: userPassword,
+      phone: userPhone,
+    })
     return api
       .post("/clerk/new", {
         name: userName,
@@ -60,23 +67,24 @@ export default function NewAttendant(props) {
           <Form>
             <Row>
               <Col>
-                <Form.Group className="mb-3" controlId="formCode">
+                <Form.Group className="mb-3" controlId="formName2">
                   <Form.Label>Nome</Form.Label>
                   <Form.Control
                     placeholder=""
                     onChange={(e) => setUserName(e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formCode">
+                <Form.Group className="mb-3" controlId="formLogin">
                   <Form.Label>Login</Form.Label>
                   <Form.Control
                     placeholder=""
                     onChange={(e) => setUserLogin(e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formCode">
+                <Form.Group className="mb-3" controlId="formPassword">
                   <Form.Label>Senha</Form.Label>
                   <Form.Control
+                    type="password"
                     placeholder=""
                     onChange={(e) => setUserPassword(e.target.value)}
                   />
@@ -89,7 +97,7 @@ export default function NewAttendant(props) {
                     value={userCpf}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formCode">
+                <Form.Group className="mb-3" controlId="formPhone">
                   <Form.Label>Telefone</Form.Label>
                   <Form.Control
                     placeholder=""
