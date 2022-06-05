@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import * as Styled from "./styles";
 
 import { FaFileAlt } from "react-icons/fa";
-const AttendantDetail = (props) => {
+const AdmDetail = (props) => {
   const [show, setShow] = useState(false);
 
   return (
@@ -31,7 +31,7 @@ const AttendantDetail = (props) => {
 
       <Modal show={show} size="lg">
         <Modal.Header closeButton onClick={() => setShow(false)}>
-          <Modal.Title>Detalhes do Atendente</Modal.Title>
+          <Modal.Title>Detalhes do Administrador</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -39,33 +39,21 @@ const AttendantDetail = (props) => {
               <Col>
                 <Form.Group className="mb-3" controlId="formName">
                   <Form.Label>Nome</Form.Label>
-                  <Form.Control
-                    placeholder={props.attendantDetails.name}
-                    disabled
-                  />
+                  <Form.Control placeholder={props.admDetails.name} disabled />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formLogin">
                   <Form.Label>Login</Form.Label>
-                  <Form.Control
-                    placeholder={props.attendantDetails.login}
-                    disabled
-                  />
+                  <Form.Control placeholder={props.admDetails.login} disabled />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formCpf">
                   <Form.Label>Cpf</Form.Label>
-                  <Form.Control
-                    placeholder={props.attendantDetails.cpf}
-                    disabled
-                  />
+                  <Form.Control placeholder={props.admDetails.cpf} disabled />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formTelefone">
                   <Form.Label>Telefone</Form.Label>
-                  <Form.Control
-                    placeholder={props.attendantDetails.phone}
-                    disabled
-                  />
+                  <Form.Control placeholder={props.admDetails.phone} disabled />
                 </Form.Group>
               </Col>
             </Row>
@@ -85,4 +73,4 @@ const AttendantDetail = (props) => {
     </>
   );
 };
-export default AttendantDetail;
+export default AdmDetail;

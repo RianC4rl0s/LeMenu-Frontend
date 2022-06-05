@@ -2,16 +2,16 @@
 //import { Modal } from "bootstrap";
 import React from "react";
 import { useEffect, useState } from "react";
-import NewAttendant from "../modal/Attendants/NewAttendant";
+import NewAdm from "../modal/Adms/NewAdm";
 import api from "../../services/api";
 import { Form, Pagination, Stack, Table } from "react-bootstrap";
 
 // import EditProduct from "../modal/products/EditProduct";
 import * as Styled from "./styles";
 
-import EditAttendent from "../modal/Attendants/EditAttendant";
-import AttendentDetail from "../modal/Attendants/AttendantDetail";
-import DeleteAttendant from "../modal/Attendants/DeleteAttendant";
+import EditAdm from "../modal/Adms/EditAdm";
+import AdmDetail from "../modal/Adms/AdmDetail";
+import DeleteAdm from "../modal/Adms/DeleteAdm";
 let active = 2;
 let items = [];
 for (let number = 1; number <= 5; number++) {
@@ -23,22 +23,21 @@ for (let number = 1; number <= 5; number++) {
 }
 
 const DataTable = () => {
-  const [attendantsList, setAttendantsList] = useState([]);
+  const [admsList, setAdmsList] = useState([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     api
       .get("/clerk/search/all")
-      .then((response) => setAttendantsList(response.data))
+      .then((response) => setAdmsList(response.data))
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
       });
-  }, []);
+  }, []);*/
 
   const [search, setSearch] = useState("");
   return (
     <>
       <Styled.TitleContainer>
-        {/* <Styled.Input placeholder="Buscar"></Styled.Input> */}
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Buscar</Form.Label>
           <Form.Control
@@ -46,8 +45,8 @@ const DataTable = () => {
             placeholder=""
           />
         </Form.Group>
-        <h3>Atendentes</h3>
-        <NewAttendant attendantDataState={setAttendantsList} />
+        <h3>Administradores</h3>
+        <NewAdm admDataState={setAdmsList} />
       </Styled.TitleContainer>
 
       <Table striped bordered hover>
@@ -61,8 +60,8 @@ const DataTable = () => {
           </tr>
         </thead>
         <tbody>
-          {attendantsList
-            .filter((attendants) => attendants.login.includes(search))
+          {admsList
+            .filter((adms) => adms.login.includes(search))
             .map((item) => (
               <tr key={item.id}>
                 <td>{item.id - 1}</td>
@@ -71,24 +70,19 @@ const DataTable = () => {
                 <td>{item.phone}</td>
                 <td>
                   <Stack direction="horizontal" gap={1}>
-                    <EditAttendent
-                      attendantEdit={item.id}
-                      attendant={item}
-                      attendantDataState={setAttendantsList}
+                    <EditAdm
+                      admtEdit={item.id}
+                      adm={item}
+                      admDataState={setAdmsList}
                     />
-                    <AttendentDetail attendantDetails={item} />
-                    <DeleteAttendant
-                      attendantDel={item.id}
-                      attendantDataState={setAttendantsList}
-                    />
+                    <AdmDetail admDetails={item} />
+                    <DeleteAdm admDel={item.id} admDataState={setAdmsList} />
                   </Stack>
                 </td>
               </tr>
             ))}
         </tbody>
       </Table>
-      {/* <EditProduct /> */}
-      {/* <Pagination>{items}</Pagination> */}
     </>
   );
 };

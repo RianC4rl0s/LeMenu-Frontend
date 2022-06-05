@@ -14,18 +14,17 @@ import { cpfMask } from "../../../utils/masks/cpf.js";
 import { phoneMask } from "../../../utils/masks/phone.js";
 
 import { FaPen } from "react-icons/fa";
-// import attendants from "../../../pages/Attendants";
-const EditAttendant = (props) => {
+const EditAdm = (props) => {
   const [show, setShow] = useState(false);
 
-  const [userName, setUserName] = useState(props.attendant.name);
-  const [userLogin, setUserLogin] = useState(props.attendant.login);
-  const [userPassword, setUserPassword] = useState(props.attendant.password);
-  const [userCpf, setUserCpf] = useState(props.attendant.cpf);
-  const [userPhone, setUserPhone] = useState(props.attendant.phone);
+  const [userName, setUserName] = useState(props.adm.name);
+  const [userLogin, setUserLogin] = useState(props.adm.login);
+  const [userPassword, setUserPassword] = useState(props.adm.password);
+  const [userCpf, setUserCpf] = useState(props.adm.cpf);
+  const [userPhone, setUserPhone] = useState(props.adm.phone);
 
-  async function edit(id) {
-    return api
+  async function edit(id) {}
+  /*return api
       .put(`clerk/update/${id}`, {
         name: userName,
         cpf: userCpf,
@@ -33,11 +32,11 @@ const EditAttendant = (props) => {
         password: userPassword,
         phone: userPhone,
       })
-      .then(loadAttendant)
+      .then(loadAdm)
       .catch((err) => {
         console.error("ops! ocorreu um erro para criar" + err);
       });
-  }
+  }*/
 
   function close() {
     setShow(false);
@@ -48,14 +47,14 @@ const EditAttendant = (props) => {
     setUserPhone("");
   }
 
-  function loadAttendant() {
+  /*function loadAdm() {
     api
       .get("/clerk/search/all")
-      .then((response) => props.attendantDataState(response.data))
+      .then((response) => props.admDataState(response.data))
       .catch((err) => {
         console.error("ops! ocorreu um erro para listar" + err);
       });
-  }
+  }*/
   return (
     <>
       <OverlayTrigger
@@ -73,7 +72,7 @@ const EditAttendant = (props) => {
 
       <Modal show={show} size="lg">
         <Modal.Header closeButton onClick={() => close()}>
-          <Modal.Title>Editar Atendente</Modal.Title>
+          <Modal.Title>Editar Administrador</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -82,28 +81,28 @@ const EditAttendant = (props) => {
                 <Form.Group className="mb-3" controlId="formName">
                   <Form.Label>Nome</Form.Label>
                   <Form.Control
-                    placeholder={props.attendant.name}
+                    placeholder={props.adm.name}
                     onChange={(e) => setUserName(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formLogin">
                   <Form.Label>Login</Form.Label>
                   <Form.Control
-                    placeholder={props.attendant.login}
+                    placeholder={props.adm.login}
                     onChange={(e) => setUserLogin(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPassword">
                   <Form.Label>Senha</Form.Label>
                   <Form.Control
-                    placeholder={props.attendant.password}
+                    placeholder={props.adm.password}
                     onChange={(e) => setUserPassword(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formCpf">
                   <Form.Label>Cpf</Form.Label>
                   <Form.Control
-                    placeholder={props.attendant.cpf}
+                    placeholder={props.adm.cpf}
                     onChange={(e) => setUserCpf(cpfMask(e.target.value))}
                     value={userCpf}
                   />
@@ -111,7 +110,7 @@ const EditAttendant = (props) => {
                 <Form.Group className="mb-3" controlId="formTelefone">
                   <Form.Label>Telefone</Form.Label>
                   <Form.Control
-                    placeholder={props.attendant.phone}
+                    placeholder={props.adm.phone}
                     onChange={(e) => setUserPhone(phoneMask(e.target.value))}
                     value={userPhone}
                   />
@@ -127,7 +126,7 @@ const EditAttendant = (props) => {
             className="pull-right"
             type="sub"
             onClick={() => {
-              edit(props.attendantEdit);
+              edit(props.admEdit);
               setShow(false);
               close();
             }}
@@ -148,4 +147,4 @@ const EditAttendant = (props) => {
     </>
   );
 };
-export default EditAttendant;
+export default EditAdm;
