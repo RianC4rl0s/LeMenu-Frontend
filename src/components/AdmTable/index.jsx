@@ -25,14 +25,14 @@ for (let number = 1; number <= 5; number++) {
 const DataTable = () => {
   const [admsList, setAdmsList] = useState([]);
 
-  /*useEffect(() => {
+  useEffect(() => {
     api
-      .get("/clerk/search/all")
+      .get("/clerk/search/alladm")
       .then((response) => setAdmsList(response.data))
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
       });
-  }, []);*/
+  }, []);
 
   const [search, setSearch] = useState("");
   return (

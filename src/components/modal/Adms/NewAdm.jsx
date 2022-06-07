@@ -13,14 +13,14 @@ export default function NewAdm(props) {
   const [userCpf, setUserCpf] = useState("");
   const [userPhone, setUserPhone] = useState("");
 
-  function loadAdm() {}
-  /*api
-      .get("/clerk/search/all")
+  function loadAdm() {
+    api
+      .get("/clerk/search/alladm")
       .then((response) => props.admDataState(response.data))
       .catch((err) => {
         console.error("ops! ocorreu um erro para listar" + err);
       });
-  }*/
+  }
 
   function close() {
     setShow(false);
@@ -31,8 +31,8 @@ export default function NewAdm(props) {
     setUserPhone("");
   }
 
-  async function add() {}
-  /*return api
+  async function add() {
+    return api
       .post("/clerk/new", {
         name: userName,
         cpf: userCpf,
@@ -44,7 +44,7 @@ export default function NewAdm(props) {
       .catch((err) => {
         console.error("ops! ocorreu um erro para criar" + err);
       });
-  }*/
+  }
 
   return (
     <>

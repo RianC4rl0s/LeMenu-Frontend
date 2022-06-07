@@ -23,8 +23,8 @@ const EditAdm = (props) => {
   const [userCpf, setUserCpf] = useState(props.adm.cpf);
   const [userPhone, setUserPhone] = useState(props.adm.phone);
 
-  async function edit(id) {}
-  /*return api
+  async function edit(id) {
+    return api
       .put(`clerk/update/${id}`, {
         name: userName,
         cpf: userCpf,
@@ -36,7 +36,7 @@ const EditAdm = (props) => {
       .catch((err) => {
         console.error("ops! ocorreu um erro para criar" + err);
       });
-  }*/
+  }
 
   function close() {
     setShow(false);
@@ -47,14 +47,14 @@ const EditAdm = (props) => {
     setUserPhone("");
   }
 
-  /*function loadAdm() {
+  function loadAdm() {
     api
-      .get("/clerk/search/all")
+      .get("/clerk/search/alladm")
       .then((response) => props.admDataState(response.data))
       .catch((err) => {
         console.error("ops! ocorreu um erro para listar" + err);
       });
-  }*/
+  }
   return (
     <>
       <OverlayTrigger
