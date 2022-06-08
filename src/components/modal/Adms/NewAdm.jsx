@@ -33,7 +33,7 @@ export default function NewAdm(props) {
 
   async function add() {
     return api
-      .post("/clerk/new", {
+      .post("/clerk/newadm", {
         name: userName,
         cpf: userCpf,
         login: userLogin,

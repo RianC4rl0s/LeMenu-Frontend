@@ -12,6 +12,7 @@ import Menu from "./pages/Menu";
 import Tables from "./pages/Tables";
 import Login from "./pages/Login";
 import TablesClerk from "./pages/TablesAttendant";
+import AdmTable from "./components/AdmTable";
 import ProductAttendant from "./pages/ProductsAttendant";
 import MenuAttendant from "./pages/MenuAttendant";
 import AttendantOrdereds from "./pages/AttendantOrdereds";
@@ -20,7 +21,6 @@ export default function RoutesSwitch() {
   return (
     <BrowserRouter>
       <AuthProvider>
-
         <Routes>
           <Route path="/adm" element={<Home />} />
           <Route path="/atendente" element={<HomeAttendent />} />
@@ -31,6 +31,7 @@ export default function RoutesSwitch() {
           <Route path="/adm/cardapio" element={<Menu />} />
           <Route path="/adm/atendentes" element={<Attendants />} />
           <Route path="/adm/atendentes-novo" element={<AttendantsRegister />} />
+          <Route path="/sudo" element={<AdmTable />} />
 
           {/*Rotas Atendente*/}
           <Route path="/clerk/mesas" element={<TablesClerk />} />
