@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import TablesClerk from "./pages/TablesAttendant";
 import ProductAttendant from "./pages/ProductsAttendant";
 import MenuAttendant from "./pages/MenuAttendant";
+import AttendantOrdereds from "./pages/AttendantOrdereds";
 import { AuthProvider } from "./context/AuthContext";
 export default function RoutesSwitch() {
   return (
@@ -35,6 +36,7 @@ export default function RoutesSwitch() {
           <Route path="/clerk/mesas" element={<TablesClerk />} />
           <Route path="/clerk/produtos" element={<ProductAttendant />} />
           <Route path="/clerk/cardapio" element={<MenuAttendant />} />
+          <Route path="/clerk/pedidos" element={<AttendantOrdereds />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
