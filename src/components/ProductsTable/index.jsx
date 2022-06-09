@@ -1,27 +1,29 @@
-//import { Button } from "bootstrap";
-//import { Modal } from "bootstrap";
-import React from "react";
-import { useEffect, useState } from "react";
-import {
-  Button,
-  Form,
-  OverlayTrigger,
-  Pagination,
-  Stack,
-  Table,
-  Tooltip,
-} from "react-bootstrap";
-// import { LinkContainer } from "react-router-bootstrap";
-import EditProduct from "../modal/products/EditProduct";
-// import ProductDetails from "../modal/products/ProductDetails";
-// import EditProduct from "../modal/products/EditProduct";
-import * as Styled from "./styles";
 
+import React, { useEffect, useState } from "react";
+
+import EditProduct from "../modal/products/EditProduct";
 import api from "../../services/api";
 import { FaTrashAlt } from "react-icons/fa";
 import ProductsRegister from "../../pages/ProductsRegister";
-
 import { base64ToBlob } from "../../utils/bloob";
+import {
+  Alert,
+  Button,
+  Form,
+  Modal,
+  ModalDialog,
+  OverlayTrigger,
+  Pagination,
+  Row,
+  Spinner,
+  Stack,
+  Table,
+  Toast,
+  Tooltip,
+} from "react-bootstrap";
+
+import * as Styled from "./styles";
+
 let active = 2;
 let items = [];
 for (let number = 1; number <= 5; number++) {
@@ -33,59 +35,52 @@ for (let number = 1; number <= 5; number++) {
 }
 
 const DataTable = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [productList, setProductList] = useState([
-    /*
-    {
-      id: 1,
-      piture: "../../../src/assets/berry.jpg",
-      name: "teste2",
-      description: "teste3",
-      price: "teste4",
-    },
-    {
-      id: 2,
-      piture: "../../../src/assets/berry.jpg",
-      name: "teste2",
-      description: "teste3",
-      price: "teste4",
-    },
-    {
-      id: 3,
-      piture: "../../../src/assets/berry.jpg",
-      name: "teste2",
-      description: "teste3",
-      price: "teste4",
-    },
-    {
-      id: 4,
-      piture: "../../../src/assets/berry.jpg",
-      name: "teste2",
-      description: "teste3",
-      price: "teste4",
-    },
-  */
-  ]);
+  const [productList, setProductList] = useState([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    api
+  const loadProducts = async () => {
+   setLoading(true);
+   await api
       .get("/product/search/all")
       .then((response) => setProductList(response.data))
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
       });
+   setLoading(false);
+  }
+
+  const deleteProduct = async (item) => {
+    setLoading(true);
+    await api
+    .delete(`/product/delete/${item.id}`)
+    .then((response) => {
+      console.log(response.data);
+      window.alert('Deletado com sucesso');
+      return;
+    })
+    .catch((err) => {
+      console.error("ops! ocorreu um erro" + err);
+      window.alert('Erro ao deletar');
+    });
+
+  loadProducts();
+  }
+
+  useEffect(() => {
+    loadProducts();
   }, []);
+
   const toBlob = (img) => {
     const blob = base64ToBlob({ base64: img, type: "image" });
     const url = URL.createObjectURL(blob);
     // console.log(url);
     return url;
   };
-  const [search, setSearch] = useState("");
+
   return (
-    <>
+    <>    
       <Styled.TitleContainer>
-        {/* <Styled.Input placeholder="Buscar" onC ></Styled.Input> */}
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Buscar</Form.Label>
           <Form.Control
@@ -96,7 +91,10 @@ const DataTable = () => {
         <h3>Produtos</h3>
         <ProductsRegister productsState={setProductList} />
       </Styled.TitleContainer>
-
+      {loading ?
+        <div style={{alignItems: 'center'}}>
+          <Spinner  animation="border" variant="success"/>
+        </div>:
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -105,11 +103,12 @@ const DataTable = () => {
             <th>Nome</th>
             <th>Descrição</th>
             <th>Preço</th>
-            <th>Opções</th>
+            <th>Opções</th> 
           </tr>
         </thead>
+       
         <tbody>
-          {productList
+         {productList
             .filter((products) => products?.name?.includes(search))
             .map((item) => (
               <tr key={item.id}>
@@ -139,21 +138,7 @@ const DataTable = () => {
                       <Button
                         variant="danger"
                         onClick={async () => {
-                          await api
-                            .delete(`/product/delete/${item.id}`)
-                            .then((response) => {
-                              console.log(response.data);
-                            })
-                            .catch((err) => {
-                              console.error("ops! ocorreu um erro" + err);
-                            });
-
-                          api
-                            .get("/product/search/all")
-                            .then((response) => setProductList(response.data))
-                            .catch((err) => {
-                              console.error("ops! ocorreu um erro" + err);
-                            });
+                          deleteProduct(item);
                         }}
                       >
                         {/* Editar */}
@@ -165,7 +150,8 @@ const DataTable = () => {
               </tr>
             ))}
         </tbody>
-      </Table>
+      </Table>}
+     
       {/* <EditProduct /> */}
       {/* <Pagination>{items}</Pagination> */}
     </>

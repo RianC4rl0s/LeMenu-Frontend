@@ -7,6 +7,7 @@ import {
   Form,
   // OverlayTrigger,
   Pagination,
+  Spinner,
   Stack,
   Table,
   // Tooltip,
@@ -35,15 +36,23 @@ for (let number = 1; number <= 5; number++) {
 const DataTableAttendant = () => {
   // eslint-disable-next-line no-unused-vars
   const [productList, setProductList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const loadProducts = async () => {
+    setLoading(true);
+    await api
+       .get("/product/search/all")
+       .then((response) => setProductList(response.data))
+       .catch((err) => {
+         console.error("ops! ocorreu um erro" + err);
+       });
+    setLoading(false);
+   }
 
   useEffect(() => {
-    api
-      .get("/product/search/all")
-      .then((response) => setProductList(response.data))
-      .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
+    loadProducts();
   }, []);
+
   const toBlob = (img) => {
     const blob = base64ToBlob({ base64: img, type: "image" });
     const url = URL.createObjectURL(blob);
@@ -65,6 +74,10 @@ const DataTableAttendant = () => {
         <h3>Produtos</h3>
       </Styled.TitleContainer>
 
+      {loading ?
+        <div style={{alignItems: 'center'}}>
+          <Spinner  animation="border" variant="success"/>
+        </div>:
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -96,7 +109,7 @@ const DataTableAttendant = () => {
               </tr>
             ))}
         </tbody>
-      </Table>
+      </Table>}
       {/* <EditProduct /> */}
       {/* <Pagination>{items}</Pagination> */}
     </>

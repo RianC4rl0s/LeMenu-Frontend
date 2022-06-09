@@ -4,7 +4,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import NewAttendant from "../modal/Attendants/NewAttendant";
 import api from "../../services/api";
-import { Form, Pagination, Stack, Table } from "react-bootstrap";
+import { Form, Pagination, Spinner, Stack, Table } from "react-bootstrap";
 
 // import EditProduct from "../modal/products/EditProduct";
 import * as Styled from "./styles";
@@ -22,16 +22,23 @@ for (let number = 1; number <= 5; number++) {
   );
 }
 
-const DataTable = () => {
+const DataTable = () => {  
   const [attendantsList, setAttendantsList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const loadClerk = async () => {
+    setLoading(true)
+    await api
+    .get("/clerk/search/all")
+    .then((response) => setAttendantsList(response.data))
+    .catch((err) => {
+      console.error("ops! ocorreu um erro" + err);
+    });
+    setLoading(false)
+  }
 
   useEffect(() => {
-    api
-      .get("/clerk/search/all")
-      .then((response) => setAttendantsList(response.data))
-      .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
+    loadClerk();
   }, []);
 
   const [search, setSearch] = useState("");
@@ -49,7 +56,10 @@ const DataTable = () => {
         <h3>Atendentes</h3>
         <NewAttendant attendantDataState={setAttendantsList} />
       </Styled.TitleContainer>
-
+      {loading ?
+     <div style={{alignItems: 'center'}}>
+        <Spinner animation="border" variant="success"/>
+      </div>:
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -86,7 +96,7 @@ const DataTable = () => {
               </tr>
             ))}
         </tbody>
-      </Table>
+      </Table>}
       {/* <EditProduct /> */}
       {/* <Pagination>{items}</Pagination> */}
     </>

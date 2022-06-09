@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col, Form, Modal, Row, Button, Alert } from "react-bootstrap";
+import { Col, Form, Modal, Row, Button, Alert, Spinner } from "react-bootstrap";
 
 import api from "../../../services/api";
 export default function NewTable(props) {
@@ -9,18 +9,24 @@ export default function NewTable(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = () => {
     setIsOpen(!isOpen);
-
   };
+
+  const closeModal = () => {
+    setTableCode("");
+    setIsOpen(false);
+    setShow(false);
+  }
 
   return (
     <>
       <Button variant="success" onClick={() => setShow(true)}>
         Nova
       </Button>
-      <Modal show={show} onHide={() => setShow(false)} size="lg">
+      <Modal show={show} onHide={closeModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Nova Mesa</Modal.Title>
         </Modal.Header>
@@ -42,7 +48,7 @@ export default function NewTable(props) {
                 <Form.Group className="mb-3" controlId="formCOde">
                   <Form.Label>Codigo</Form.Label>
                   <Form.Control
-                    placeholder=""
+                    placeholder={tableCode}
                     onChange={(e) => setTableCode(e.target.value)}
                   />
                 </Form.Group>
@@ -74,48 +80,55 @@ export default function NewTable(props) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-
-          <Button
-            variant="success"
-            onClick={async () => {
-              if (tableCode !== "") {
-                await api
+        {loading ?
+          <div style={{alignItems: 'center'}}>
+            <Spinner  animation="border" variant="success"/>
+          </div>:
+          <>
+            <Button
+              variant="success"
+              onClick={async () => {
+                if (tableCode !== "") {
+                  setLoading(true)
+                  await api
                   .post("/table/new", {
-                    code: tableCode,
-                    isOpen: isOpen,
-                  })
-                  .then((response) => {
+                      code: tableCode,
+                      isOpen: isOpen,
+                    })
+                    .then((response) => {
+                      window.alert('Nova mesa criada');
+                      closeModal();
+                    } /*console.log(response.data)*/)
+                    .catch((err) => {
+                      setShowError(true);
+                      console.error("ops! ocorreu um erro" + err);
+                    });
 
-                    setShow(false);
-                  } /*console.log(response.data)*/)
-                  .catch((err) => {
-                    setShowError(true);
-                    console.error("ops! ocorreu um erro" + err);
-                  });
+                  await api
+                    .get("/table/search/all")
+                    .then((response) => {
+                      console.log(response.data);
+                      props.tableDataState(response.data);
+                    })
+                    .catch((err) => {
+                      console.error("ops! ocorreu um erro" + err);
+                    });
+                    setLoading(false)
 
-                await api
-                  .get("/table/search/all")
-                  .then((response) => {
-                    console.log(response.data);
-                    props.tableDataState(response.data);
-                  })
-                  .catch((err) => {
-                    console.error("ops! ocorreu um erro" + err);
-                  });
-
-                //setShow(false);
-                
-                setShowAlert(false);
-              } else {
-                setShowAlert(true);
-              }
-            }}
-          >
-            Adicionar
-          </Button>
-          <Button variant="danger" onClick={() => setShow(false)}>
-            Cancelar
-          </Button>
+                  //closeModal();
+                  
+                  setShowAlert(false);
+                } else {
+                  setShowAlert(true);
+                }
+              }}
+            >
+              Adicionar
+            </Button>
+            <Button variant="danger" onClick={closeModal}>
+              Cancelar
+            </Button>
+          </>}
         </Modal.Footer>
       </Modal>
     </>

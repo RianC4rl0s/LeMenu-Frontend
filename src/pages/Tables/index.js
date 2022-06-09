@@ -4,6 +4,7 @@ import {
   // Button,
   Form,
   Modal,
+  Spinner,
   // OverlayTrigger,
   Stack,
   Table,
@@ -22,16 +23,23 @@ import { LinkContainer } from "react-router-bootstrap";
 import QRCode from "react-qr-code";
 export default function Tables() {
   const [tableList, setTableList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    api
+  const loadTables = async () => {
+    setLoading(true);
+    await api
       .get("/table/search/all")
       .then((response) => setTableList(response.data))
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    loadTables();
   }, []);
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -53,7 +61,7 @@ export default function Tables() {
           <Styled.Container>
             <Breadcrumb>
               <LinkContainer to="/adm">
-                <Breadcrumb.Item >Inicio</Breadcrumb.Item>
+                <Breadcrumb.Item>Inicio</Breadcrumb.Item>
               </LinkContainer>
               <LinkContainer to="/adm/mesas">
                 <Breadcrumb.Item active>Mesas</Breadcrumb.Item>
@@ -71,51 +79,73 @@ export default function Tables() {
                 <h3>Mesas</h3>
                 <NewTable tableDataState={setTableList} />
               </Styled.TitleContainer>
-
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Cod</th>
-                    <th>Cliente</th>
-                    <th>Total Pedido</th>
-                    <th>Disponibilidade</th>
-                    <th>Opções</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tableList
-                    .filter((tables) => tables.code.includes(search))
-                    .map((item) => (
-                      <tr key={item.id}>
-                        <td>{item.code}</td>
-                        <td>
-                          {item.client == null ? (
-                            <>Não tem cliente</>
-                          ) : (
-                            item.client.name
-                          )}
-                        </td>
-                        <td>0,00R$</td>
-                        <td>
-                          {item.isOpen ? (
-                           <div style={{ backgroundColor: "#44DD44",textAlign:"center", borderRadius: "5px" }}>
-
-                           <label style={{ color: "white",fontWeight:"800" }}>Mesa Livre</label>
-                         </div>
-                          ) : (
-                            <div style={{ backgroundColor: "#dd4444",textAlign:"center", borderRadius: "5px" }}>
-
-                              <label style={{ color: "white",fontWeight:"800" }}>Mesa Ocupada</label>
-                            </div>
-                          )}
-                        </td>
-                        <td>
-                          <Stack direction="horizontal" gap={1}>
-                            <EditTables
-                              item={item}
-                              tableDataState={setTableList}
-                            />
-                            {/* <OverlayTrigger
+              {loading ? (
+                <div style={{ alignItems: "center" }}>
+                  <Spinner animation="border" variant="success" />
+                </div>
+              ) : (
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Cod</th>
+                      <th>Cliente</th>
+                      <th>Total Pedido</th>
+                      <th>Disponibilidade</th>
+                      <th>Opções</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tableList
+                      .filter((tables) => tables.code.includes(search))
+                      .map((item) => (
+                        <tr key={item.id}>
+                          <td>{item.code}</td>
+                          <td>
+                            {item.client == null ? (
+                              <>Não tem cliente</>
+                            ) : (
+                              item.client.name
+                            )}
+                          </td>
+                          <td>0,00R$</td>
+                          <td>
+                            {item.isOpen ? (
+                              <div
+                                style={{
+                                  backgroundColor: "#44DD44",
+                                  textAlign: "center",
+                                  borderRadius: "5px",
+                                }}
+                              >
+                                <label
+                                  style={{ color: "white", fontWeight: "800" }}
+                                >
+                                  Mesa Livre
+                                </label>
+                              </div>
+                            ) : (
+                              <div
+                                style={{
+                                  backgroundColor: "#dd4444",
+                                  textAlign: "center",
+                                  borderRadius: "5px",
+                                }}
+                              >
+                                <label
+                                  style={{ color: "white", fontWeight: "800" }}
+                                >
+                                  Mesa Ocupada
+                                </label>
+                              </div>
+                            )}
+                          </td>
+                          <td>
+                            <Stack direction="horizontal" gap={1}>
+                              <EditTables
+                                item={item}
+                                tableDataState={setTableList}
+                              />
+                              {/* <OverlayTrigger
                               placement="bottom"
                               overlay={
                                 <Tooltip>
@@ -127,33 +157,41 @@ export default function Tables() {
                                 <FaSearch color="white" />
                               </Button>
                             </OverlayTrigger>*/}
-                            <Button variant="primary" onClick={handleShow}>
-                              QR Code
-                            </Button>
+                              <Button variant="primary" onClick={handleShow}>
+                                QR Code
+                              </Button>
 
-                            <Modal show={show} onHide={handleClose}>
-                              <Modal.Header closeButton>
-                                <Modal.Title>QR Code</Modal.Title>
-                              </Modal.Header>
-                              <Modal.Body>
-                                <div style={{ background: 'white', padding: '16px' }}>
-                                  <QRCode value={item.code} />
-                                </div>
-                              </Modal.Body>
-                              <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>
-                                  Fechar
-                                </Button>
-                                {/* <Button variant="primary" onClick={handleClose}>
+                              <Modal show={show} onHide={handleClose}>
+                                <Modal.Header closeButton>
+                                  <Modal.Title>QR Code</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <div
+                                    style={{
+                                      background: "white",
+                                      padding: "16px",
+                                    }}
+                                  >
+                                    <QRCode value={item.code} />
+                                  </div>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                  <Button
+                                    variant="secondary"
+                                    onClick={handleClose}
+                                  >
+                                    Fechar
+                                  </Button>
+                                  {/* <Button variant="primary" onClick={handleClose}>
                                   Save Changes
                                 </Button> */}
-                              </Modal.Footer>
-                            </Modal>
-                          </Stack>
-                        </td>
-                      </tr>
-                    ))}
-                  {/* <tr>
+                                </Modal.Footer>
+                              </Modal>
+                            </Stack>
+                          </td>
+                        </tr>
+                      ))}
+                    {/* <tr>
                     <td>123</td>
                     <td>João</td>
                     <td>0,00R$</td>
@@ -176,8 +214,9 @@ export default function Tables() {
                       </Stack>
                     </td>
                   </tr> */}
-                </tbody>
-              </Table>
+                  </tbody>
+                </Table>
+              )}
             </Styled.BorderContainer>
           </Styled.Container>
         </div>

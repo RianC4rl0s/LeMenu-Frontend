@@ -5,22 +5,26 @@ import api from "../../../services/api";
 import { FaTrashAlt } from "react-icons/fa";
 
 const DeleteAttendant = (props) => {
-  function loadAttendant() {
-    api
+
+  async function loadAttendant() {
+    window.alert('Deletado com susseso')
+    await api
       .get("/clerk/search/all")
-      .then((response) => props.attendantDataState(response.data))
+      .then((response) => {
+        props.attendantDataState(response.data)})
       .catch((err) => {
         console.error("ops! ocorreu um erro para listar" + err);
       });
   }
 
   async function remove(id) {
-    return api
-      .delete(`clerk/delete/${id}`)
-      .then(loadAttendant)
-      .catch((err) => {
-        console.error("ops! ocorreu um erro ao deletar!" + err);
-      });
+    await api
+    .delete(`clerk/delete/${id}`)
+    .then(loadAttendant)
+    .catch((err) => {
+      window.alert('Erro ao deletar');
+      console.error("ops! ocorreu um erro ao deletar!" + err);
+    });
   }
 
   return (

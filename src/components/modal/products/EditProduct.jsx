@@ -6,6 +6,7 @@ import {
   Row,
   Tooltip,
   Button,
+  Spinner,
 } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import * as Styled from "./styles";
@@ -15,6 +16,7 @@ import { FaPen } from "react-icons/fa";
 const EditProduct = (props) => {
   const [show, setShow] = useState(false);
 
+  const [loading, setLoading] = useState(false);
   const [produtctName, setProductName] = useState(props.product.name);
   const [productPrice, setproductPrice] = useState(props.product.login);
   const [productSale, setproductSale] = useState(props.product.sale);
@@ -22,27 +24,38 @@ const EditProduct = (props) => {
     props.product.description
   );
 
+  async function loadProduct() {
+    await api
+    .get("/product/search/all")
+    .then((response) => {
+      window.alert('Produto atualizado com sucesso');
+      return props.productDataState(response.data);
+    })
+    .catch((err) => {
+      window.alert('Erro ao atualizar');
+      console.error("ops! ocorreu um erro para listar" + err);
+    });
+  }
+
   async function edit(id) {
-    return api
+    setLoading(true);
+   await api
       .put(`product/update/${id}`, {
         name: produtctName,
         price: productPrice,
         sale: productSale,
         description: productDescription,
       })
-      .then(loadProduct)
+      .then((response) => 
+      {
+        return loadProduct(response)
+      })
       .catch((err) => {
+        window.alert('Erro ao atualizar');
         console.error("ops! ocorreu um erro para criar" + err);
       });
-  }
+    setLoading(false);
 
-  function loadProduct() {
-    api
-      .get("/product/search/all")
-      .then((response) => props.productDataState(response.data))
-      .catch((err) => {
-        console.error("ops! ocorreu um erro para listar" + err);
-      });
   }
 
   const [selectedFile, setSelectedFile] = useState();
@@ -72,6 +85,7 @@ const EditProduct = (props) => {
     // I've kept this example simple by using the first image instead of multiple
     setSelectedFile(e.target.files[0]);
   };
+
   return (
     <>
       <OverlayTrigger
@@ -149,15 +163,16 @@ const EditProduct = (props) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          {loading ? <Spinner  animation="border" variant="success"/>:
+          <>
           <Styled.ButtonGreen
-            className="pull-right"
-            type="sub"
-            onClick={() => {
-              edit(props.productEdit);
+          className="pull-right"
+          type="sub"
+            onClick={async () =>  {
+              await edit(props.productEdit);
               setShow(false);
             }}
-          >
-            Salvar
+          > Salvar
           </Styled.ButtonGreen>
           <Styled.ButtonRed
             className="pull-right"
@@ -168,8 +183,11 @@ const EditProduct = (props) => {
           >
             Cancelar
           </Styled.ButtonRed>
+          </>
+          }
+          
           {/* <Button variant="secondary" onClick={handleClose}>
-                        Cancelar
+          Cancelar
                     </Button>
                     <Button variant="primary" onClick={handleClose}>
                         Salvar
