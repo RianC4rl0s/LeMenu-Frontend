@@ -78,7 +78,7 @@ const AttendantDetail = (props) => {
             type="sub"
             onClick={() => setShow(false)}
           >
-            Cancelar
+            Voltar
           </Styled.ButtonRed>
         </Modal.Footer>
       </Modal>
