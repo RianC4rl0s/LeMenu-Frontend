@@ -92,13 +92,6 @@ const EditAdm = (props) => {
                     onChange={(e) => setUserLogin(e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formPassword">
-                  <Form.Label>Senha</Form.Label>
-                  <Form.Control
-                    placeholder={props.adm.password}
-                    onChange={(e) => setUserPassword(e.target.value)}
-                  />
-                </Form.Group>
                 <Form.Group className="mb-3" controlId="formCpf">
                   <Form.Label>Cpf</Form.Label>
                   <Form.Control
