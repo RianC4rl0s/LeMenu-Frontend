@@ -35,11 +35,11 @@ export default function RoutesSwitch() {
 
 
           <Route path="/" element={<Login />} />
+          <Route path="/adm" element={<Home />} />
+          <Route path="/atendente" element={<HomeAttendent />} />
           {
             (role === "ROLE_ADMIN" || role === "ROLE_SUPER_ADMIN") && <>
 
-              <Route path="/adm" element={<Home />} />
-              <Route path="/atendente" element={<HomeAttendent />} />
               <Route path="/adm/mesas" element={<Tables />} />
               <Route path="/adm/produtos" element={<Product />} />
               <Route path="/adm/cardapio" element={<Menu />} />
