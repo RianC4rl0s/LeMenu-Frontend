@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Styled from "./styles";
 
 import api from "../../services/api"
-import { Card, Col, Form, Image, Row, Modal } from "react-bootstrap";
+import { Card, Col, Form, Image, Row, Modal, Spinner } from "react-bootstrap";
 // import { Button } from "bootstrap";
 const ProductRegister = (props) => {
     const [selectedFile, setSelectedFile] = useState()
@@ -12,6 +12,7 @@ const ProductRegister = (props) => {
     const [price, setPrice] = useState();
     const [promotion, setPromotion] = useState();
     const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [imgString, setImgString] = useState();
     // create a preview as a side effect, whenever selected file is changed
@@ -88,7 +89,7 @@ const ProductRegister = (props) => {
         // e.preventDefault()
         if (imgString !== "" || name !== "" || description !== "" || price !== "" || promotion !== "" || false !== null
             || imgString !== null || name !== null || description !== null || price !== null || promotion !== null) {
-
+            setLoading(true);
             await api
                 .post("/product/new", {
                     image: imgString,
@@ -99,11 +100,11 @@ const ProductRegister = (props) => {
                     isOnMenu: false,
 
                 })
-                .then((response) => { } /*console.log(response.data)*/)
+                .then((response) => {window.alert("Criado com sucesso") } /*console.log(response.data)*/)
                 .catch((err) => {
+                    window.alert("Erro ao criar produto") 
                     console.error("ops! ocorreu um erro" + err);
                 });
-
 
             api
                 .get("/product/search/all")
@@ -111,7 +112,9 @@ const ProductRegister = (props) => {
                 .catch((err) => {
                     console.error("ops! ocorreu um erro" + err);
                 });
+
             setSelectedFile(undefined)
+            setLoading(false);
             setShow(false)
         }
 
@@ -174,12 +177,13 @@ const ProductRegister = (props) => {
                                         />
                                     </Form.Group>
                                 </Col>
-                            </Row>
+                            </Row>   
+                            {loading ? <Spinner  animation="border" variant="success"/>:
                             <div className="float-right">
                                 <Styled.ButtonGreen className="pull-right" type="submit" onClick={ handlesubmit} >Salvar</Styled.ButtonGreen>
                                 <Styled.ButtonRed className="pull-right" >Cancelar</Styled.ButtonRed>
 
-                            </div>
+                            </div>}
                         </Form>
                     </Card.Body>
                 </Card>
