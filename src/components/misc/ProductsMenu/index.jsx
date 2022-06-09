@@ -41,10 +41,6 @@ const PeoductsMenu = () => {
             .catch((err) => {
                 console.error("ops! ocorreu um erro" + err);
             });
-
-
-
-
     }, [])
 
     const toBlob = (img) => {
