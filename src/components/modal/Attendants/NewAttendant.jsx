@@ -14,15 +14,16 @@ export default function NewAttendant(props) {
   const [userCpf, setUserCpf] = useState("");
   const [userPhone, setUserPhone] = useState("");
 
+  const [error, setError] = useState("");
   async function loadAttendant() {
     await api
-    .get("/clerk/search/all")
-    .then((response) => props.attendantDataState(response.data))
-    .catch((err) => {
-      console.error("ops! ocorreu um erro para listar" + err);
-    });
+      .get("/clerk/search/all")
+      .then((response) => props.attendantDataState(response.data))
+      .catch((err) => {
+        console.error("ops! ocorreu um erro para listar" + err);
+      });
   }
-  
+
   function close() {
     setShow(false);
     setUserName("");
@@ -41,7 +42,7 @@ export default function NewAttendant(props) {
       phone: userPhone,
     })
 
-    if(userName === "" || userCpf === "" || userLogin === "" || userPassword === "" || userPhone === ""){
+    if (userName === "" || userCpf === "" || userLogin === "" || userPassword === "" || userPhone === "") {
       window.alert("Campo vazio")
       return;
     }
@@ -55,14 +56,19 @@ export default function NewAttendant(props) {
         password: userPassword,
         phone: userPhone,
       })
-      .then(loadAttendant)
+      .then((response) => {
+        loadAttendant()
+        setShow(false);
+        setError("");
+        close();
+      })
       .catch((err) => {
+        setError("Login, cpf ou telefone ja foram cadastrados")
         console.error("ops! ocorreu um erro para criar" + err);
       });
-      setLoading(false)
+    setLoading(false)
 
-      setShow(false);
-      close();
+
   }
 
   return (
@@ -119,27 +125,30 @@ export default function NewAttendant(props) {
                 </Form.Group>
               </Col>
             </Row>
+            <Row>
+              {error}
+            </Row>
             <div className="float-right"></div>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-        {loading ?
-          <div style={{alignItems: 'center'}}>
-            <Spinner  animation="border" variant="success"/>
-          </div>: 
-          <>
-          <Button
-          variant="success"
-          onClick={() => {
-              add();
-            }}
-            >
-            Adicionar
-          </Button>
-          <Button variant="danger" onClick={() => close()}>
-            Cancelar
-          </Button>
-          </>
+          {loading ?
+            <div style={{ alignItems: 'center' }}>
+              <Spinner animation="border" variant="success" />
+            </div> :
+            <>
+              <Button
+                variant="success"
+                onClick={() => {
+                  add();
+                }}
+              >
+                Adicionar
+              </Button>
+              <Button variant="danger" onClick={() => close()}>
+                Cancelar
+              </Button>
+            </>
           }
         </Modal.Footer>
       </Modal>

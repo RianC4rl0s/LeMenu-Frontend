@@ -107,7 +107,7 @@ const EditAttendant = (props) => {
                 <Form.Group className="mb-3" controlId="formPassword">
                   <Form.Label>Senha</Form.Label>
                   <Form.Control
-                    placeholder={props.attendant.password}
+                    // placeholder={props.attendant.password}
                     onChange={(e) => setUserPassword(e.target.value)}
                   />
                 </Form.Group>

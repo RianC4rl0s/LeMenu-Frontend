@@ -7,18 +7,18 @@ import { FaTrashAlt } from "react-icons/fa";
 import ProductsRegister from "../../pages/ProductsRegister";
 import { base64ToBlob } from "../../utils/bloob";
 import {
-  Alert,
+  // Alert,
   Button,
   Form,
-  Modal,
-  ModalDialog,
+  // Modal,
+  // ModalDialog,
   OverlayTrigger,
   Pagination,
-  Row,
+  // Row,
   Spinner,
   Stack,
   Table,
-  Toast,
+  // Toast,
   Tooltip,
 } from "react-bootstrap";
 

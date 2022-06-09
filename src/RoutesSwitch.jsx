@@ -55,15 +55,14 @@ export default function RoutesSwitch() {
           }
 
           {/*Rotas Atendente*/}
-          {
-            (role === "ROLE_ADMIN" || role === "ROLE_SUPER_ADMIN"||role === "ROLE_SUPER_ATTENDANT",role === "ROLE_ATTENDANT" ) && <>
 
 
-              <Route path="/clerk/mesas" element={<TablesClerk />} />
-              <Route path="/clerk/produtos" element={<ProductAttendant />} />
-              <Route path="/clerk/cardapio" element={<MenuAttendant />} />
-              <Route path="/clerk/pedidos/" element={<AttendantOrdereds />} />
-            </>}
+
+          <Route path="/clerk/mesas" element={<TablesClerk />} />
+          <Route path="/clerk/produtos" element={<ProductAttendant />} />
+          <Route path="/clerk/cardapio" element={<MenuAttendant />} />
+          <Route path="/clerk/pedidos" element={<AttendantOrdereds />} />
+
         </Routes>
       </AuthProvider>
     </BrowserRouter>
