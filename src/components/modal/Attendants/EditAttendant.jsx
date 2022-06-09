@@ -4,6 +4,7 @@ import {
   Modal,
   OverlayTrigger,
   Row,
+  Spinner,
   Tooltip,
 } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -23,20 +24,25 @@ const EditAttendant = (props) => {
   const [userPassword, setUserPassword] = useState(props.attendant.password);
   const [userCpf, setUserCpf] = useState(props.attendant.cpf);
   const [userPhone, setUserPhone] = useState(props.attendant.phone);
+  const [loading, setLoading] = useState(false);
 
   async function edit(id) {
-    return api
-      .put(`clerk/update/${id}`, {
-        name: userName,
-        cpf: userCpf,
-        login: userLogin,
-        password: userPassword,
-        phone: userPhone,
-      })
-      .then(loadAttendant)
-      .catch((err) => {
-        console.error("ops! ocorreu um erro para criar" + err);
-      });
+    setLoading(true)
+    await api
+    .put(`clerk/update/${id}`, {
+      name: userName,
+      cpf: userCpf,
+      login: userLogin,
+      password: userPassword,
+      phone: userPhone,
+    })
+    .then(loadAttendant)
+    .catch((err) => {
+      console.error("ops! ocorreu um erro para criar" + err);
+    });
+    setLoading(false)
+    setShow(false);
+    close();
   }
 
   function close() {
@@ -48,14 +54,19 @@ const EditAttendant = (props) => {
     setUserPhone("");
   }
 
-  function loadAttendant() {
-    api
+  async function loadAttendant() {
+    await api
       .get("/clerk/search/all")
-      .then((response) => props.attendantDataState(response.data))
+      .then((response) => {
+        window.alert('Atualizado com sucesso');
+        props.attendantDataState(response.data)
+      })
       .catch((err) => {
+        window.alert('Erro ao atualizar');
         console.error("ops! ocorreu um erro para listar" + err);
       });
   }
+
   return (
     <>
       <OverlayTrigger
@@ -122,14 +133,16 @@ const EditAttendant = (props) => {
             <div className="float-right"></div>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer> {loading ?
+    <div style={{alignItems: 'center'}}>
+      <Spinner  animation="border" variant="success"/>
+    </div>:
+         <>
           <Styled.ButtonGreen
             className="pull-right"
             type="sub"
             onClick={() => {
               edit(props.attendantEdit);
-              setShow(false);
-              close();
             }}
           >
             Salvar
@@ -143,6 +156,7 @@ const EditAttendant = (props) => {
           >
             Cancelar
           </Styled.ButtonRed>
+          </>}
         </Modal.Footer>
       </Modal>
     </>

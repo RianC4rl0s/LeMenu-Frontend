@@ -7,6 +7,7 @@ import {
   Row,
   Tooltip,
   Button,
+  Spinner,
 } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import api from "../../../services/api";
@@ -16,21 +17,25 @@ export default function EditTables({item,tableDataState}) {
 
   const [code, setCode] = useState(item.code);
   const [isOpen, setIsOpen] = useState(item.isOpen);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = () => {
     setIsOpen(!isOpen);
   };
 
   async function deleteTable(){
+    setLoading(true)
     await api
     .delete(`/table/delete/${item.id}`)
     .then((response) => {
+      window.alert('Mesa deletada');
       console.log(response.data);
     })
     .catch((err) => {
+      window.alert('Erro ao deletar');
       console.error("ops! ocorreu um erro" + err);
     });
-
+    
     await api
     .get("/table/search/all")
     .then((response) => {
@@ -40,19 +45,23 @@ export default function EditTables({item,tableDataState}) {
     .catch((err) => {
       console.error("ops! ocorreu um erro" + err);
     });
+    setLoading(false)
     setShow(false);
   }
 
   async function updateTable(){
+    setLoading(true)
     await api
     .put(`/table/update/${item.id}`, {
       code: code,
       isOpen: true
     })
     .then((response) => {
+        window.alert('Mesa atualizada com sucesso');
       console.log(response.data);
     })
     .catch((err) => {
+      window.alert('Erro ao atualizar');
       console.error("ops! ocorreu um erro" + err);
     });
 
@@ -65,6 +74,7 @@ export default function EditTables({item,tableDataState}) {
     .catch((err) => {
       console.error("ops! ocorreu um erro" + err);
     });
+    setLoading(false)
     setShow(false);
   }
 
@@ -103,13 +113,19 @@ export default function EditTables({item,tableDataState}) {
             <div className="float-right"></div>
           </Form>
 
-          <Button variant="outline-danger"  onClick={() => deleteTable()}>Deletar Mesa</Button>
+          {!loading && <Button variant="outline-danger"  onClick={() => deleteTable()}>Deletar Mesa</Button>}
         </Modal.Body>
         <Modal.Footer>
+          {loading? <div style={{alignItems: 'center'}}>
+      <Spinner  animation="border" variant="success"/>
+    </div>:
+          <>
           <Button variant="success" onClick={() => updateTable()}>Atualizar</Button>
           <Button variant="danger" onClick={() => setShow(false)}>
             Cancelar
           </Button>
+          </>
+    }
         </Modal.Footer>
       </Modal>
     );

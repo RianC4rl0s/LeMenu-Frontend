@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col, Form, Modal, Row, Button } from "react-bootstrap";
+import { Col, Form, Modal, Row, Button, Spinner } from "react-bootstrap";
 import { cpfMask } from "../../../utils/masks/cpf.js";
 import { phoneMask } from "../../../utils/masks/phone.js";
 
@@ -7,21 +7,22 @@ import api from "../../../services/api";
 export default function NewAttendant(props) {
   const [show, setShow] = useState(false);
 
+  const [loading, setLoading] = useState(false);
   const [userName, setUserName] = useState("");
   const [userLogin, setUserLogin] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userCpf, setUserCpf] = useState("");
   const [userPhone, setUserPhone] = useState("");
 
-  function loadAttendant() {
-    api
-      .get("/clerk/search/all")
-      .then((response) => props.attendantDataState(response.data))
-      .catch((err) => {
-        console.error("ops! ocorreu um erro para listar" + err);
-      });
+  async function loadAttendant() {
+    await api
+    .get("/clerk/search/all")
+    .then((response) => props.attendantDataState(response.data))
+    .catch((err) => {
+      console.error("ops! ocorreu um erro para listar" + err);
+    });
   }
-
+  
   function close() {
     setShow(false);
     setUserName("");
@@ -39,7 +40,14 @@ export default function NewAttendant(props) {
       password: userPassword,
       phone: userPhone,
     })
-    return api
+
+    if(userName === "" || userCpf === "" || userLogin === "" || userPassword === "" || userPhone === ""){
+      window.alert("Campo vazio")
+      return;
+    }
+
+    setLoading(true)
+    await api
       .post("/clerk/new", {
         name: userName,
         cpf: userCpf,
@@ -51,6 +59,10 @@ export default function NewAttendant(props) {
       .catch((err) => {
         console.error("ops! ocorreu um erro para criar" + err);
       });
+      setLoading(false)
+
+      setShow(false);
+      close();
   }
 
   return (
@@ -111,19 +123,24 @@ export default function NewAttendant(props) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+        {loading ?
+          <div style={{alignItems: 'center'}}>
+            <Spinner  animation="border" variant="success"/>
+          </div>: 
+          <>
           <Button
-            variant="success"
-            onClick={() => {
+          variant="success"
+          onClick={() => {
               add();
-              setShow(false);
-              close();
             }}
-          >
+            >
             Adicionar
           </Button>
           <Button variant="danger" onClick={() => close()}>
             Cancelar
           </Button>
+          </>
+          }
         </Modal.Footer>
       </Modal>
     </>
