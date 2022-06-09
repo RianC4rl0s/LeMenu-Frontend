@@ -51,7 +51,7 @@ export function AuthProvider({ children }) {
         await recoverUserInformation()
             .then(response => {
                 setUser(response.user);
-
+                localStorage.setItem("user_role",response.user.roles );
                 if (response.user.roles === 'ROLE_ADMIN' || response.user.roles === 'ROLE_SUPER_ADMIN')
                     navigate('/adm')
                 else if (response.user.roles === 'ROLE_ATTENDANT' || response.user.roles === 'ROLE_SUPER_ATTENDANT')
