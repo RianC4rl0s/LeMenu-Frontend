@@ -2,10 +2,10 @@ import api from "../../services/api"
 import { useEffect, useState } from "react";
 import TopBar from "../../components/TopBar";
 import { Button, Table } from "react-bootstrap";
-import { SideBarAttendant as SideBar } from "../../components/SideBarAttendant";
+import { SideBar } from "../../components/SideBar";
 import * as Styled from "./styles";
 
-export default function AttendantOrdereds() {
+export default function AdmOrderds() {
 
     const [orderedList, setOrderedList] = useState([]);
 

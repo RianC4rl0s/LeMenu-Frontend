@@ -8,7 +8,7 @@ import logo from "../../assets/logo.svg";
 // import user from "../../assets/user.svg";
 import hamburger from "../../assets/hamburgerSvg.svg";
 import { /*Button,*/ OverlayTrigger, Stack, Tooltip } from "react-bootstrap";
-import { FaAppleAlt, FaUserAlt, FaUtensils, FaCube } from 'react-icons/fa'
+import { FaAppleAlt, FaUserAlt, FaUtensils, FaCube,FaListUl } from 'react-icons/fa'
 import { Link } from "react-router-dom";
 
 export function SideBar() {
@@ -76,6 +76,22 @@ export function SideBar() {
                 placement="right"
                 overlay={
                   <Tooltip>
+                    Pedidos
+                  </Tooltip>
+                }
+              >
+               
+                <Link to="/adm/pedidos">
+                  <button className="sideBarBtn">
+                    <FaListUl></FaListUl>
+                  </button>
+                </Link>
+              </OverlayTrigger>
+              <OverlayTrigger
+
+                placement="right"
+                overlay={
+                  <Tooltip>
                     Mesas
                   </Tooltip>
                 }
@@ -120,7 +136,7 @@ export function SideBar() {
         </Styled.ContentTop>
         <Link to="/">
 
-          <Styled.ContentBottom>
+          <Styled.ContentBottom onClick={()=>localStorage.removeItem("lemenu_token")}>
             <img src={hamburger} alt="hamburger" />
           </Styled.ContentBottom>
         </Link>

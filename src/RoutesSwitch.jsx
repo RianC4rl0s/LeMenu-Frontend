@@ -15,13 +15,19 @@ import TablesClerk from "./pages/TablesAttendant";
 import ProductAttendant from "./pages/ProductsAttendant";
 import MenuAttendant from "./pages/MenuAttendant";
 import AttendantOrdereds from "./pages/AttendantOrdereds";
+import AdmOrderds from "./pages/AdmOrders";
 import { AuthProvider } from "./context/AuthContext";
+import { useEffect } from "react";
+import { recoverUserInformation } from "./services/auth"
+
 export default function RoutesSwitch() {
+  
   return (
     <BrowserRouter>
       <AuthProvider>
 
         <Routes>
+
           <Route path="/adm" element={<Home />} />
           <Route path="/atendente" element={<HomeAttendent />} />
           <Route path="/" element={<Login />} />
@@ -31,12 +37,12 @@ export default function RoutesSwitch() {
           <Route path="/adm/cardapio" element={<Menu />} />
           <Route path="/adm/atendentes" element={<Attendants />} />
           <Route path="/adm/atendentes-novo" element={<AttendantsRegister />} />
-
+          <Route path="/adm/pedidos/" element={<AdmOrderds />} />
           {/*Rotas Atendente*/}
           <Route path="/clerk/mesas" element={<TablesClerk />} />
           <Route path="/clerk/produtos" element={<ProductAttendant />} />
           <Route path="/clerk/cardapio" element={<MenuAttendant />} />
-          <Route path="/clerk/pedidos" element={<AttendantOrdereds />} />
+          <Route path="/clerk/pedidos/" element={<AttendantOrdereds />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
