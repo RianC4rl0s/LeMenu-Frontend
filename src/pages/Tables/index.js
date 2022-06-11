@@ -96,7 +96,7 @@ export default function Tables() {
                   </thead>
                   <tbody>
                     {tableList
-                      .filter((tables) => tables.code.includes(search))
+                      .filter((tables) => tables?.code?.includes(search))
                       .map((item) => (
                         <tr key={item.id}>
                           <td>{item.code}</td>
@@ -187,6 +187,25 @@ export default function Tables() {
                                 </Button> */}
                                 </Modal.Footer>
                               </Modal>
+                              <Button variant="danger" onClick={async () => {
+                                await api.delete("/table/delete/" + item.id)
+                                  .then((response) => { })
+                                  .catch((err) => {
+                                    console.error("ops! ocorreu um erro" + err);
+                                  });
+
+
+                                await api
+                                  .get("/table/search/all")
+                                  .then((response) => setTableList(response.data))
+                                  .catch((err) => {
+                                    console.error("ops! ocorreu um erro" + err);
+                                  });
+
+
+                              }}>
+                                Deletar
+                              </Button>
                             </Stack>
                           </td>
                         </tr>
