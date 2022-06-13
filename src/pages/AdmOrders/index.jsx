@@ -58,18 +58,17 @@ export default function AdmOrderds() {
                                                 <td>{item.id}</td>
                                                 <td>{item.product.name}</td>
                                                 <td>
-                                                    Joao
-                                                    {/*item.orderedTable.client == null ?
+
+                                                    {item.orderedTable.client == null ?
                                                         <>Não tem cliente</>
                                                         : item.orderedTable.client?.name
-                                        */}
+                                                    }
                                                 </td>
-                                                <td></td>
+                                                
                                                 <td>
-                                                    TEste
-                                                    {/*
-                                                    item.orderedTable?.code
-                                    */ }
+                                                    {
+                                                        item.orderedTable?.code
+                                                    }
                                                 </td>
 
 
@@ -81,14 +80,14 @@ export default function AdmOrderds() {
                                                             await api
                                                                 .put("/ordered/update/" + item.id, {
                                                                     "status": "Progress",
-                                                                    "description":item.description
+                                                                    "description": item.description
                                                                 })
                                                                 .then((response) => {
                                                                     item.status = "Progress"
                                                                     let temp = orderedList.filter(value => value.id !== item.id)
                                                                     temp.push(item)
                                                                     setOrderedList(temp)
-                                                                    
+
 
                                                                 } /*console.log(response.data)*/)
                                                                 .catch((err) => {
@@ -131,17 +130,15 @@ export default function AdmOrderds() {
                                                 <td>{item.id}</td>
                                                 <td>{item.product.name}</td>
                                                 <td>
-                                                    Joao
-                                                    {/*item.orderedTable.client == null ?
+                                                    {item.orderedTable.client == null ?
                                                         <>Não tem cliente</>
                                                         : item.orderedTable.client?.name
-                                        */}
+                                                    }
                                                 </td>
                                                 <td>
-                                                    TEste
-                                                    {/*
-                                                    item.orderedTable?.code
-                                    */ }
+                                                    {
+                                                        item.orderedTable?.code
+                                                    }
                                                 </td>
 
 
@@ -153,7 +150,7 @@ export default function AdmOrderds() {
                                                                 await api
                                                                     .put("/ordered/update/" + item.id, {
                                                                         "status": "Finalized",
-                                                                        "description":item.description
+                                                                        "description": item.description
                                                                     })
                                                                     .then((response) => {
                                                                         item.status = "Finalized"
@@ -163,6 +160,16 @@ export default function AdmOrderds() {
                                                                     } /*console.log(response.data)*/)
                                                                     .catch((err) => {
 
+                                                                        console.error("ops! ocorreu um erro" + err);
+                                                                    });
+                                                                api
+                                                                    .get("/ordered/search/all")
+                                                                    //.get(`/table/list/order?id=${id}`)
+                                                                    .then((response) => {
+                                                                        console.log(response.data); setOrderedList(response.data)
+
+                                                                    })
+                                                                    .catch((err) => {
                                                                         console.error("ops! ocorreu um erro" + err);
                                                                     });
 
@@ -201,17 +208,16 @@ export default function AdmOrderds() {
                                                 <td>{item.id}</td>
                                                 <td>{item.product.name}</td>
                                                 <td>
-                                                    Joao
-                                                    {/*item.orderedTable.client == null ?
+                                                    {item.orderedTable.client == null ?
                                                         <>Não tem cliente</>
                                                         : item.orderedTable.client?.name
-                                        */}
+                                                    }
                                                 </td>
                                                 <td>
-                                                    TEste
-                                                    {/*
-                                                    item.orderedTable?.code
-                                    */ }
+
+                                                    {
+                                                        item.orderedTable?.code
+                                                    }
                                                 </td>
                                                 <th>{item.description}</th>
                                                 <td>
@@ -221,22 +227,22 @@ export default function AdmOrderds() {
                                                             await api
                                                                 .put("/ordered/update/" + item.id, {
                                                                     "status": "Progress",
-                                                                    "description":item.description
+                                                                    "description": item.description
                                                                 })
                                                                 .then((response) => {
                                                                     item.status = "Progress"
-                                                                    
+
                                                                     let temp = orderedList.filter(value => value.id !== item.id)
                                                                     temp.push(item)
                                                                     setOrderedList(temp)
-        
+
                                                                 } /*console.log(response.data)*/)
                                                                 .catch((err) => {
 
                                                                     console.error("ops! ocorreu um erro" + err);
                                                                 });
 
-                                                           
+
                                                         }
                                                     }>Voltar ao Preparo</Button>
                                                 </td>
